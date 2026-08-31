@@ -14,7 +14,7 @@ import { PUBLIC_ROUTES } from '../../routes'
 export function RegisterPage() {
   return (
     <div className="mx-auto w-full max-w-[23.75rem] lg:mx-0">
-      <Logo className="text-ink" />
+      <Logo className="mx-auto w-[7.625rem] text-ink" />
 
       <div className="mt-9 text-center">
         <h1 className="font-serif text-[2.75rem] leading-none text-ink">
