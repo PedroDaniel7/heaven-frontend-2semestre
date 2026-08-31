@@ -1,16 +1,41 @@
 @import "tailwindcss";
 
 /*
- * Heaven — estilos globais.
+ * Heaven — estilos globais e tokens do Design System.
  *
  * Tailwind CSS é o mecanismo principal de estilização do projeto
- * (03-architecture.md §19). Este arquivo deve conter apenas o mínimo
- * necessário e não deve virar um segundo sistema de estilos paralelo.
+ * (03-architecture.md §19). Este arquivo não deve virar um segundo
+ * sistema de estilos paralelo.
  *
- * Os tokens do Design System (paleta, tipografia, spacing, radius)
- * serão declarados aqui via @theme quando os valores estiverem
- * aprovados a partir da referência visual (02-design-system.md).
+ * Os valores abaixo foram extraídos da referência visual aprovada e
+ * representam os papéis definidos em 02-design-system.md §4 e §6.
  */
+@theme {
+  /* Paleta — 02-design-system.md §4 */
+  --color-canvas: #f7f5f0; /* Warm off-white: fundo principal */
+  --color-surface: #ffffff; /* White: inputs, cards, superfícies */
+  --color-forest: #1b2b21; /* Deep forest green: painel de marca */
+  --color-forest-deep: #14211a; /* Deep forest green, borda do painel */
+  --color-primary: #1f3729; /* Deep forest green: CTA principal */
+  --color-primary-hover: #172a1f;
+  --color-sage: #b8c3a3; /* Muted sage: composição decorativa */
+  --color-ink: #1a201b; /* Títulos */
+  --color-body: #3a3d37; /* Labels e texto funcional */
+  --color-muted: #8b8b83; /* Texto secundário, placeholders */
+  --color-border: #e3dfd7; /* Bordas e divisores */
+  --color-link: #2f5741; /* Links */
+  --color-on-forest: #ece9e1; /* Texto sobre o painel escuro */
+  --color-danger: #9a3b30; /* Mensagens de erro */
+
+  /* Breakpoints — 06-responsive.md §2
+     Mobile ≤480 · Tablet 768 · Desktop ≥992 */
+  --breakpoint-lg: 62rem; /* 992px: alinha `lg` ao desktop do Heaven */
+
+  /* Tipografia — 02-design-system.md §6 e §42 */
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+}
 
 html,
 body,
@@ -19,6 +44,10 @@ body,
 }
 
 body {
+  background-color: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
   /* Nenhuma tela deve possuir overflow horizontal inesperado
      (09-quality-gates.md §6). */
   overflow-x: hidden;

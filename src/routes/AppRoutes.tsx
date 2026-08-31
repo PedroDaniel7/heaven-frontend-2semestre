@@ -2,14 +2,14 @@ import { Route, Routes } from 'react-router-dom'
 
 import { AppLayout } from '../layouts/AppLayout'
 import { AuthLayout } from '../layouts/AuthLayout'
-import { APP_ROUTES } from './routeConfig'
+import { RegisterPage } from '../pages/Register'
+import { APP_ROUTES, PUBLIC_ROUTES } from './routeConfig'
 
 /**
  * TEMPORÁRIO — placeholder de fundação.
  *
- * Existe apenas para permitir verificar que a aplicação inicia, que o
- * roteamento funciona e que o Tailwind está ativo enquanto nenhuma tela
- * foi implementada. Deve ser removido no ciclo da primeira tela.
+ * Existe apenas enquanto a tela inicial do fluxo não foi implementada.
+ * Deve ser removido quando o Login for construído.
  */
 function FoundationPlaceholder() {
   return (
@@ -25,18 +25,18 @@ function FoundationPlaceholder() {
  * Árvore de rotas do Heaven.
  *
  * As telas são registradas uma por ciclo de desenvolvimento
- * (05-development-workflow.md §2). Os slots abaixo indicam onde cada
- * grupo de rotas deve ser declarado.
+ * (05-development-workflow.md §2).
  */
 export function AppRoutes() {
   return (
     <Routes>
-      {/* TEMPORÁRIO — remover quando a primeira tela for implementada. */}
+      {/* TEMPORÁRIO — remover quando a tela de Login for implementada. */}
       <Route path="/" element={<FoundationPlaceholder />} />
 
-      {/* Rotas públicas: /login, /cadastro (PUBLIC_ROUTES). */}
+      {/* Rotas públicas (PUBLIC_ROUTES). */}
       <Route element={<AuthLayout />}>
-        {/* As telas públicas são registradas aqui. */}
+        <Route path={PUBLIC_ROUTES.register} element={<RegisterPage />} />
+        {/* Login será registrado aqui. */}
       </Route>
 
       {/* Rotas autenticadas: /app e subrotas (APP_ROUTES). */}
