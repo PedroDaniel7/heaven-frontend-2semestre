@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/*
+ * Heaven — estilos globais.
+ *
+ * Tailwind CSS é o mecanismo principal de estilização do projeto
+ * (03-architecture.md §19). Este arquivo deve conter apenas o mínimo
+ * necessário e não deve virar um segundo sistema de estilos paralelo.
+ *
+ * Os tokens do Design System (paleta, tipografia, spacing, radius)
+ * serão declarados aqui via @theme quando os valores estiverem
+ * aprovados a partir da referência visual (02-design-system.md).
+ */
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  /* Nenhuma tela deve possuir overflow horizontal inesperado
+     (09-quality-gates.md §6). */
+  overflow-x: hidden;
+}
