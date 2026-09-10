@@ -28,7 +28,7 @@ export function FaqItem({
 
   return (
     <div className="border-b border-border">
-      <h3>
+      <h2>
         <button
           type="button"
           id={buttonId}
@@ -45,7 +45,7 @@ export function FaqItem({
             ].join(' ')}
           />
         </button>
-      </h3>
+      </h2>
 
       {isOpen ? (
         <div

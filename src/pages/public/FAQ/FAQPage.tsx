@@ -3,12 +3,25 @@ import { useState } from 'react'
 import { FaqItem } from '../../../components/FaqItem'
 import { FAQ_ENTRIES } from '../../../data/faq'
 
-/** Página FAQ — `paginas/faq.html` da Sprint 2. */
+/**
+ * Página FAQ — `paginas/faq.html` da Sprint 2.
+ *
+ * Cada pergunta abre e fecha de forma independente, como no legado:
+ * mais de uma resposta pode ficar visível ao mesmo tempo.
+ */
 export function FAQPage() {
-  const [openId, setOpenId] = useState<string | null>(null)
+  const [openIds, setOpenIds] = useState<Set<string>>(new Set())
 
   function handleToggle(id: string) {
-    setOpenId((current) => (current === id ? null : id))
+    setOpenIds((current) => {
+      const next = new Set(current)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
   }
 
   return (
@@ -24,7 +37,7 @@ export function FAQPage() {
             id={entry.id}
             question={entry.question}
             answer={entry.answer}
-            isOpen={openId === entry.id}
+            isOpen={openIds.has(entry.id)}
             onToggle={handleToggle}
           />
         ))}
