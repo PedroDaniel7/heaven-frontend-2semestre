@@ -1,0 +1,1 @@
+export { IntegrantesPage } from './IntegrantesPage'

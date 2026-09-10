@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 
-import { Logo } from '../../components/Logo'
-import { ArrowRightIcon } from '../../components/icons'
-import { RegisterForm } from '../../features/auth/forms'
-import { PUBLIC_ROUTES } from '../../routes'
+import { Logo } from '../../../components/Logo'
+import { ArrowRightIcon } from '../../../components/icons'
+import { RegisterForm } from '../../../features/auth/forms'
+import { AUTH_ROUTES } from '../../../routes'
 
 /**
  * Tela de Cadastro — /cadastro (04-screen-specs.md §6).
@@ -38,7 +38,7 @@ export function RegisterPage() {
       <p className="mt-6 text-center text-xs text-muted">
         Já possui uma conta?{' '}
         <Link
-          to={PUBLIC_ROUTES.login}
+          to={AUTH_ROUTES.login}
           className="inline-flex items-center gap-1 font-medium text-ink underline-offset-2 outline-none hover:underline focus-visible:underline"
         >
           Entrar

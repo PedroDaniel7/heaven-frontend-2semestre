@@ -71,3 +71,38 @@ export function ArrowRightIcon(props: IconProps) {
     </svg>
   )
 }
+
+export function MenuIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+      <path d="M4 7h16" />
+      <path d="M4 12h16" />
+      <path d="M4 17h16" />
+    </svg>
+  )
+}
+
+export function CloseIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+      <path d="m6 6 12 12" />
+      <path d="m18 6-12 12" />
+    </svg>
+  )
+}
+
+export function ChevronDownIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+      <path d="m6 9 6 6 6-6" />
+    </svg>
+  )
+}
+
+export function PhoneIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...baseProps} {...props}>
+      <path d="M6.6 2.5a1.5 1.5 0 0 1 1.4 1l1 2.6a1.5 1.5 0 0 1-.4 1.7L7.4 9a12 12 0 0 0 5.9 5.9l1.2-1.2a1.5 1.5 0 0 1 1.7-.4l2.6 1a1.5 1.5 0 0 1 1 1.4v2.4a1.5 1.5 0 0 1-1.6 1.5C10.6 19.1 4.9 13.4 4.2 4.1A1.5 1.5 0 0 1 5.7 2.5Z" />
+    </svg>
+  )
+}
