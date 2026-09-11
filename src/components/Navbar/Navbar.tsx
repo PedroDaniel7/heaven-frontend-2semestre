@@ -35,7 +35,7 @@ export function Navbar() {
           className="outline-none focus-visible:underline focus-visible:underline-offset-4"
           onClick={() => setIsMenuOpen(false)}
         >
-          <Logo className="w-24 text-ink" />
+          <Logo className="w-20 text-ink lg:w-24" />
           <span className="sr-only">Heaven — página inicial</span>
         </NavLink>
 

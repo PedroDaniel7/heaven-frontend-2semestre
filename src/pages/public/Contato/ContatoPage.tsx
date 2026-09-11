@@ -18,27 +18,34 @@ export function ContatoPage() {
         </p>
       </header>
 
-      <div className="mx-auto mt-12 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="mx-auto mt-12 flex max-w-6xl flex-wrap justify-center gap-6">
         {MEMBERS.map((member) => (
-          <PersonCard key={member.id} name={member.name} photo={member.photo}>
-            <a
-              href={`mailto:${member.email}`}
-              className="flex items-center gap-2 text-sm break-all text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
-            >
-              <MailIcon className="h-4 w-4 shrink-0" />
-              {member.email}
-            </a>
+          <li
+            key={member.id}
+            className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
+          >
+            <PersonCard name={member.name} photo={member.photo}>
+              {member.email ? (
+                <a
+                  href={`mailto:${member.email}`}
+                  className="flex items-center gap-2 text-sm break-all text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+                >
+                  <MailIcon className="h-4 w-4 shrink-0" />
+                  {member.email}
+                </a>
+              ) : null}
 
-            <a
-              href={toTelHref(member.phone)}
-              className="flex items-center gap-2 text-sm text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
-            >
-              <PhoneIcon className="h-4 w-4 shrink-0" />
-              {member.phone}
-            </a>
-          </PersonCard>
+              <a
+                href={toTelHref(member.phone)}
+                className="flex items-center gap-2 text-sm text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+              >
+                <PhoneIcon className="h-4 w-4 shrink-0" />
+                {member.phone}
+              </a>
+            </PersonCard>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }

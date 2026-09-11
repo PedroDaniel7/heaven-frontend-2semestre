@@ -32,7 +32,7 @@ export function SobrePage() {
       </header>
 
       <section className="mt-12">
-        <h2 className="font-serif text-2xl text-ink">O Problema</h2>
+        <h2 className="font-serif text-2xl font-medium text-ink">O Problema</h2>
         <p className="mt-3 leading-relaxed text-body">
           Atualmente, as iniciativas de créditos de carbono ou recompensas
           ecológicas dependem de auditorias centralizadas caras e lentas.
@@ -43,7 +43,7 @@ export function SobrePage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="font-serif text-2xl text-ink">A Solução Proposta</h2>
+        <h2 className="font-serif text-2xl font-medium text-ink">A Solução Proposta</h2>
         <p className="mt-3 leading-relaxed text-body">
           O Heaven cria um sistema de gamificação sustentável baseado em{' '}
           <strong className="font-semibold text-ink">
@@ -58,7 +58,7 @@ export function SobrePage() {
       </section>
 
       <section className="mt-10">
-        <h2 className="font-serif text-2xl text-ink">
+        <h2 className="font-serif text-2xl font-medium text-ink">
           Roadmap de Desenvolvimento
         </h2>
 

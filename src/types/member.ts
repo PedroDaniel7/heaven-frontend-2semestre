@@ -1,4 +1,4 @@
-/** Integrante do projeto, conforme dados da Sprint 2. */
+/** Integrante do projeto. */
 export type Member = {
   id: string
   name: string
@@ -6,6 +6,7 @@ export type Member = {
   photo: string
   github: string
   linkedin: string
-  email: string
+  /** Nem todo integrante forneceu e-mail. */
+  email?: string
   phone: string
 }

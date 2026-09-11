@@ -31,7 +31,7 @@ export function ValidarPanel() {
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h2 className="font-serif text-3xl text-ink">
+      <h2 className="font-serif text-3xl font-medium text-ink">
         Central de Auditoria de Pares
       </h2>
       <p className="mt-3 leading-relaxed text-body">
@@ -44,7 +44,7 @@ export function ValidarPanel() {
           AÇÃO PENDENTE ID #{PENDING_ACTION.id}
         </p>
 
-        <h3 className="mt-3 font-serif text-xl text-ink">
+        <h3 className="mt-3 font-serif text-xl font-medium text-ink">
           Categoria: {PENDING_ACTION.category}
         </h3>
 

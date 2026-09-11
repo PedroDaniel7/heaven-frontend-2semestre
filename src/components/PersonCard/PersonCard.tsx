@@ -22,7 +22,7 @@ export function PersonCard({
   children,
 }: PersonCardProps) {
   return (
-    <article className="flex flex-col items-center rounded-lg border border-border bg-surface p-8 text-center transition-shadow hover:shadow-[0_8px_16px_rgba(0,0,0,0.06)]">
+    <article className="flex h-full flex-col items-center rounded-lg border border-border bg-surface p-8 text-center transition-shadow hover:shadow-[0_8px_16px_rgba(0,0,0,0.06)]">
       <img
         src={photo}
         alt={`Foto de ${name}`}
@@ -33,7 +33,7 @@ export function PersonCard({
         className="mb-6 h-[130px] w-[130px] rounded-full border-2 border-sage object-cover"
       />
 
-      <h2 className="font-serif text-xl text-ink">{name}</h2>
+      <h2 className="font-serif text-xl font-medium text-ink">{name}</h2>
 
       {subtitle ? (
         <p className="mt-1 text-sm text-muted">{subtitle}</p>

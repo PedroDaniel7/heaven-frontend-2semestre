@@ -26,7 +26,7 @@ const ECOSYSTEM_STEPS = [
 export function HomePage() {
   return (
     <>
-      <section className="border-b border-border px-6 py-20 lg:px-8 lg:py-28">
+      <section className="border-b border-border px-6 py-14 sm:py-20 lg:px-8 lg:py-28">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="font-serif text-4xl leading-tight text-ink sm:text-5xl">
             Sua rotina sustentável transformada em recompensas reais
@@ -56,9 +56,9 @@ export function HomePage() {
         </div>
       </section>
 
-      <section className="px-6 py-20 lg:px-8">
+      <section className="px-6 py-14 sm:py-20 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <h2 className="text-center font-serif text-3xl text-ink">
+          <h2 className="text-center font-serif text-3xl font-medium text-ink">
             Como o ecossistema funciona?
           </h2>
 

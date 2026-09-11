@@ -53,7 +53,7 @@ export function DashboardPanel() {
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_2fr]">
       <aside className="h-fit rounded-lg bg-surface p-6 ring-1 ring-border">
-        <h2 className="font-serif text-2xl text-ink">Seu Perfil</h2>
+        <h2 className="font-serif text-2xl font-medium text-ink">Seu Perfil</h2>
         <p className="mt-1 text-sm text-muted">Nível Eco Cidadão</p>
 
         <div className="mt-6 space-y-3">
@@ -64,7 +64,7 @@ export function DashboardPanel() {
       </aside>
 
       <section className="rounded-lg border border-border p-6 sm:p-8">
-        <h2 className="font-serif text-2xl text-ink">
+        <h2 className="font-serif text-2xl font-medium text-ink">
           Registrar Nova Ação Sustentável
         </h2>
         <p className="mt-2 text-sm text-body">

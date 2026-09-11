@@ -15,38 +15,42 @@ export function IntegrantesPage() {
         </p>
       </header>
 
-      <div className="mx-auto mt-12 grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="mx-auto mt-12 flex max-w-6xl flex-wrap justify-center gap-6">
         {MEMBERS.map((member) => (
-          <PersonCard
+          <li
             key={member.id}
-            name={member.name}
-            photo={member.photo}
-            subtitle={`RM ${member.rm}`}
+            className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
           >
-            <div className="flex items-center gap-4">
-              <a
-                href={member.github}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
-              >
-                GitHub
-                <span className="sr-only"> de {member.name}</span>
-              </a>
+            <PersonCard
+              name={member.name}
+              photo={member.photo}
+              subtitle={`RM ${member.rm}`}
+            >
+              <div className="flex items-center gap-4">
+                <a
+                  href={member.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+                >
+                  GitHub
+                  <span className="sr-only"> de {member.name}</span>
+                </a>
 
-              <a
-                href={member.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
-              >
-                LinkedIn
-                <span className="sr-only"> de {member.name}</span>
-              </a>
-            </div>
-          </PersonCard>
+                <a
+                  href={member.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+                >
+                  LinkedIn
+                  <span className="sr-only"> de {member.name}</span>
+                </a>
+              </div>
+            </PersonCard>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }

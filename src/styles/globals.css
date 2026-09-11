@@ -21,7 +21,7 @@
   --color-sage: #b8c3a3; /* Muted sage: composição decorativa */
   --color-ink: #1a201b; /* Títulos */
   --color-body: #3a3d37; /* Labels e texto funcional */
-  --color-muted: #8b8b83; /* Texto secundário, placeholders */
+  --color-muted: #6e6e68; /* Texto secundário, placeholders — 4,7:1 (WCAG AA) */
   --color-border: #e3dfd7; /* Bordas e divisores */
   --color-link: #2f5741; /* Links */
   --color-on-forest: #ece9e1; /* Texto sobre o painel escuro */

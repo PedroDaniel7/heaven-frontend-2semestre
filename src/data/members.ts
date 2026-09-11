@@ -1,4 +1,5 @@
 import arthurPhoto from '../assets/images/members/arthur.jpg'
+import eduardoPhoto from '../assets/images/members/eduardo.png'
 import lucasPhoto from '../assets/images/members/lucas.png'
 import pedroPhoto from '../assets/images/members/pedro.webp'
 import rickPhoto from '../assets/images/members/rick.jpg'
@@ -10,9 +11,10 @@ export const CLASS_NAME = '1TDSPW'
 /**
  * Integrantes do projeto.
  *
- * Dados migrados de `paginas/integrantes.html` e `paginas/contato.html`
- * da Sprint 2. As duas páginas usavam a mesma lista, por isso ela é
- * centralizada aqui (03-architecture.md §27).
+ * Os quatro primeiros foram migrados de `paginas/integrantes.html` e
+ * `paginas/contato.html` da Sprint 2; Eduardo entrou na Sprint 3. As duas
+ * páginas usam a mesma lista, por isso ela é centralizada aqui
+ * (03-architecture.md §27).
  */
 export const MEMBERS: Member[] = [
   {
@@ -54,5 +56,14 @@ export const MEMBERS: Member[] = [
     linkedin: 'https://www.linkedin.com/in/rick-nascimento-b063733b6/',
     email: 'rickgodinhotk7@gmail.com',
     phone: '(11) 97131-2313',
+  },
+  {
+    id: 'eduardo',
+    name: 'Eduardo Oliveira Conde',
+    rm: '573163',
+    photo: eduardoPhoto,
+    github: 'https://github.com/eduardo-oliveira-conde',
+    linkedin: 'https://www.linkedin.com/in/eduardo-conde-663213348/',
+    phone: '(11) 93227-2205',
   },
 ]
