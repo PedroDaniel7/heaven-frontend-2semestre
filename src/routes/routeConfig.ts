@@ -26,10 +26,16 @@ export const AUTH_ROUTES = {
 export const APP_ROUTES = {
   root: '/app',
   newAction: '/app/acoes/nova',
+  actionDetail: '/app/acoes/:id',
   validation: '/app/validar',
   ranking: '/app/ranking',
   profile: '/app/perfil',
 } as const
+
+/** URL de detalhe de uma ação (rota dinâmica `APP_ROUTES.actionDetail`). */
+export function actionDetailPath(id: string) {
+  return `/app/acoes/${id}`
+}
 
 export const ROUTES = {
   ...PUBLIC_ROUTES,

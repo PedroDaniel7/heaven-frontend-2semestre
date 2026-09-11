@@ -1,10 +1,14 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { Button } from '../../../../components/Button'
 import { Select } from '../../../../components/Select'
 import { StatBox } from '../../../../components/StatBox'
 import { Textarea } from '../../../../components/Textarea'
+import { ArrowRightIcon } from '../../../../components/icons'
+import { ACTIONS } from '../../../../data/actions'
+import { actionDetailPath } from '../../../../routes'
 import type { ActionRegistrationData } from './types'
 
 /** Indicadores do perfil, migrados de `solucao-dashboard.html`. */
@@ -12,18 +16,6 @@ const PROFILE_STATS = [
   { label: 'Pontos Acumulados', value: '120' },
   { label: 'Sequência Ativa (Streak)', value: '🔥 5 Dias' },
   { label: 'Reputação na Rede', value: '98% (Excelente)' },
-]
-
-const IMPACT_TYPES = [
-  {
-    value: 'transporte',
-    label: 'Uso de Transporte Público (Metrô/Ônibus)',
-  },
-  {
-    value: 'energia',
-    label: 'Redução de Consumo Elétrico (Evidência em Conta)',
-  },
-  { value: 'reciclagem', label: 'Descarte Correto de Eletrônicos/Óleo' },
 ]
 
 /**
@@ -39,11 +31,14 @@ export function DashboardPanel() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors },
   } = useForm<ActionRegistrationData>({
     mode: 'onTouched',
-    defaultValues: { impactType: IMPACT_TYPES[0].value, description: '' },
+    defaultValues: { impactType: ACTIONS[0].id, description: '' },
   })
+
+  const selectedAction = useWatch({ control, name: 'impactType' })
 
   function onSubmit() {
     setWasSubmitted(true)
@@ -77,13 +72,23 @@ export function DashboardPanel() {
           noValidate
           className="mt-6 space-y-5"
         >
-          <Select label="Tipo de Impacto" {...register('impactType')}>
-            {IMPACT_TYPES.map((type) => (
-              <option key={type.value} value={type.value}>
-                {type.label}
-              </option>
-            ))}
-          </Select>
+          <div>
+            <Select label="Tipo de Impacto" {...register('impactType')}>
+              {ACTIONS.map((action) => (
+                <option key={action.id} value={action.id}>
+                  {action.label}
+                </option>
+              ))}
+            </Select>
+
+            <Link
+              to={actionDetailPath(selectedAction)}
+              className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+            >
+              Ver detalhes desta ação
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </Link>
+          </div>
 
           <Textarea
             label="Descrição ou Justificativa"
