@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { Logo } from '../Logo'
@@ -14,6 +14,24 @@ import { PUBLIC_NAV_ITEMS, PUBLIC_ROUTES } from '../../routes'
  */
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+
+  // Com o menu mobile aberto, Escape fecha o menu e devolve o foco ao
+  // botão que o abriu.
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key !== 'Escape') return
+      setIsMenuOpen(false)
+      menuButtonRef.current?.focus()
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [isMenuOpen])
 
   const linkClasses = ({ isActive }: { isActive: boolean }) =>
     [
@@ -50,6 +68,7 @@ export function Navbar() {
         </ul>
 
         <button
+          ref={menuButtonRef}
           type="button"
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-expanded={isMenuOpen}
