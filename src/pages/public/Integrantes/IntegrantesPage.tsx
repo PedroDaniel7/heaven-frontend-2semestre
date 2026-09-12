@@ -34,7 +34,7 @@ export function IntegrantesPage() {
                   className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
                 >
                   GitHub
-                  <span className="sr-only"> de {member.name}</span>
+                  <span className="sr-only"> de {member.name} (abre em nova aba)</span>
                 </a>
 
                 <a
@@ -44,7 +44,7 @@ export function IntegrantesPage() {
                   className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
                 >
                   LinkedIn
-                  <span className="sr-only"> de {member.name}</span>
+                  <span className="sr-only"> de {member.name} (abre em nova aba)</span>
                 </a>
               </div>
             </PersonCard>
