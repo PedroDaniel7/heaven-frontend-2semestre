@@ -96,14 +96,8 @@ export function Navbar() {
                 to={item.to}
                 end
                 onClick={() => setIsMenuOpen(false)}
-                className={({ isActive }) =>
-                  [
-                    'block py-3 text-sm transition-colors outline-none',
-                    'focus-visible:underline focus-visible:underline-offset-4',
-                    isActive
-                      ? 'font-medium text-primary'
-                      : 'text-body hover:text-primary',
-                  ].join(' ')
+                className={(state) =>
+                  ['block py-3', linkClasses(state)].join(' ')
                 }
               >
                 {item.label}
