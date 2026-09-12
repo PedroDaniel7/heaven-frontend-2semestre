@@ -64,6 +64,7 @@ export const MEMBERS: Member[] = [
     photo: eduardoPhoto,
     github: 'https://github.com/eduardo-oliveira-conde',
     linkedin: 'https://www.linkedin.com/in/eduardo-conde-663213348/',
+    email: 'edu.conde021@gmail.com',
     phone: '(11) 93227-2205',
   },
 ]
