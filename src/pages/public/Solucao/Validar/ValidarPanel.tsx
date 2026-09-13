@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Button } from '../../../../components/Button'
 
@@ -28,6 +28,15 @@ const FEEDBACK: Record<VoteResult, string> = {
  */
 export function ValidarPanel() {
   const [vote, setVote] = useState<VoteResult | null>(null)
+  const feedbackRef = useRef<HTMLParagraphElement>(null)
+
+  // Os botões somem após o voto e o foco se perderia no <body>: ele vai
+  // para o resultado, que só é renderizado depois de um voto registrado.
+  useEffect(() => {
+    if (vote) {
+      feedbackRef.current?.focus()
+    }
+  }, [vote])
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -60,7 +69,11 @@ export function ValidarPanel() {
             de forma confiável mudanças em uma região que já existia. */}
         <div role="status" aria-live="polite" aria-atomic="true">
           {vote ? (
-            <p className="mt-6 rounded-md bg-primary/8 px-4 py-3 text-center text-sm font-medium text-primary">
+            <p
+              ref={feedbackRef}
+              tabIndex={-1}
+              className="mt-6 rounded-md bg-primary/8 px-4 py-3 text-center text-sm font-medium text-primary outline-none"
+            >
               {FEEDBACK[vote]}
             </p>
           ) : null}
