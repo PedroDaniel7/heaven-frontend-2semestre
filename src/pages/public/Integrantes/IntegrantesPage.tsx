@@ -26,25 +26,26 @@ export function IntegrantesPage() {
               photo={member.photo}
               subtitle={`RM ${member.rm}`}
             >
+              {/* py-3 leva a área de toque dos links a 44px; -my-3 compensa no layout. */}
               <div className="flex items-center gap-4">
                 <a
                   href={member.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+                  className="-my-3 py-3 text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
                 >
                   GitHub
-                  <span className="sr-only"> de {member.name}</span>
+                  <span className="sr-only"> de {member.name} (abre em nova aba)</span>
                 </a>
 
                 <a
                   href={member.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+                  className="-my-3 py-3 text-sm font-medium text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
                 >
                   LinkedIn
-                  <span className="sr-only"> de {member.name}</span>
+                  <span className="sr-only"> de {member.name} (abre em nova aba)</span>
                 </a>
               </div>
             </PersonCard>

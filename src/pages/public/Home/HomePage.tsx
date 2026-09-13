@@ -62,15 +62,18 @@ export function HomePage() {
             Como o ecossistema funciona?
           </h2>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {/* Tablet: 2 colunas; o card que sobra sozinho ocupa a linha inteira. */}
+          <ol className="mt-12 grid gap-6 md:grid-cols-2 md:max-lg:*:last:odd:col-span-2 lg:grid-cols-3">
             {ECOSYSTEM_STEPS.map((step) => (
-              <FeatureCard
-                key={step.title}
-                title={step.title}
-                description={step.description}
-              />
+              // `grid` estica o card até a altura da linha, como quando ele era o item do grid.
+              <li key={step.title} className="grid">
+                <FeatureCard
+                  title={step.title}
+                  description={step.description}
+                />
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
     </>
