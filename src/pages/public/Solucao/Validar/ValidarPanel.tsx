@@ -56,14 +56,17 @@ export function ValidarPanel() {
           Imagem do comprovante anexada pelo usuário
         </div>
 
-        {vote ? (
-          <p
-            role="status"
-            className="mt-6 rounded-md bg-primary/8 px-4 py-3 text-center text-sm font-medium text-primary"
-          >
-            {FEEDBACK[vote]}
-          </p>
-        ) : (
+        {/* A live region fica sempre montada: leitores de tela só anunciam
+            de forma confiável mudanças em uma região que já existia. */}
+        <div role="status" aria-live="polite" aria-atomic="true">
+          {vote ? (
+            <p className="mt-6 rounded-md bg-primary/8 px-4 py-3 text-center text-sm font-medium text-primary">
+              {FEEDBACK[vote]}
+            </p>
+          ) : null}
+        </div>
+
+        {vote === null ? (
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button type="button" onClick={() => setVote('approved')}>
               Aprovar Registro
@@ -77,7 +80,7 @@ export function ValidarPanel() {
               Rejeitar / Fraude
             </Button>
           </div>
-        )}
+        ) : null}
       </article>
     </div>
   )
