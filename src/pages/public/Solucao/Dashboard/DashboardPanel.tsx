@@ -106,15 +106,16 @@ export function DashboardPanel() {
           </Button>
         </form>
 
-        {wasSubmitted ? (
-          <p
-            role="status"
-            className="mt-4 rounded-md bg-primary/8 px-4 py-3 text-sm font-medium text-primary"
-          >
-            Sucesso! Sua ação entrou na fila pendente. 3 validadores
-            aleatórios estão revisando seu registro.
-          </p>
-        ) : null}
+        {/* A live region fica sempre montada: leitores de tela só anunciam
+            de forma confiável mudanças em uma região que já existia. */}
+        <div role="status" aria-live="polite" aria-atomic="true">
+          {wasSubmitted ? (
+            <p className="mt-4 rounded-md bg-primary/8 px-4 py-3 text-sm font-medium text-primary">
+              Sucesso! Sua ação entrou na fila pendente. 3 validadores
+              aleatórios estão revisando seu registro.
+            </p>
+          ) : null}
+        </div>
       </section>
     </div>
   )
