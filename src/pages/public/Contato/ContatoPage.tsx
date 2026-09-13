@@ -25,10 +25,13 @@ export function ContatoPage() {
             className="w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
           >
             <PersonCard name={member.name} photo={member.photo}>
+              {/* Área de toque maior sem mudar o layout: o padding avança sobre o espaço
+                  livre (e-mail para cima, telefone para baixo), a margem negativa compensa
+                  e os dois dividem o gap-2 ao meio, sem se sobrepor. */}
               {member.email ? (
                 <a
                   href={`mailto:${member.email}`}
-                  className="flex items-center gap-2 text-sm break-all text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+                  className="-mt-4 -mb-1 flex items-center gap-2 pt-4 pb-1 text-sm break-all text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
                 >
                   <MailIcon className="h-4 w-4 shrink-0" />
                   {member.email}
@@ -37,7 +40,7 @@ export function ContatoPage() {
 
               <a
                 href={toTelHref(member.phone)}
-                className="flex items-center gap-2 text-sm text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
+                className="-mt-1 -mb-5 flex items-center gap-2 pt-1 pb-5 text-sm text-link underline-offset-2 outline-none hover:underline focus-visible:underline"
               >
                 <PhoneIcon className="h-4 w-4 shrink-0" />
                 {member.phone}
