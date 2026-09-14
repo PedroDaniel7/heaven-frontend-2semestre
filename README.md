@@ -88,7 +88,7 @@ Composição de marca exibida ao lado do formulário de Cadastro no desktop (`sr
 
 ### Capturas de tela
 
-**PENDENTE** — capturas de tela da aplicação ainda não adicionadas ao repositório.
+<img width="1237" height="974" alt="image" src="https://github.com/user-attachments/assets/f9224922-e85f-4962-bbc5-151b20e322a0" />
 
 ### Ícones do sistema
 
