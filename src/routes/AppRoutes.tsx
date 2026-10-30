@@ -1,9 +1,11 @@
 import { Route, Routes } from 'react-router-dom'
 
+import { RequireAuth } from '../components/RequireAuth'
 import { AppLayout } from '../layouts/AppLayout'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { PublicLayout } from '../layouts/PublicLayout'
 import { ActionDetailPage } from '../pages/app/Actions'
+import { LoginPage } from '../pages/auth/Login'
 import { RegisterPage } from '../pages/auth/Register'
 import { ContatoPage } from '../pages/public/Contato'
 import { FAQPage } from '../pages/public/FAQ'
@@ -37,11 +39,16 @@ export function AppRoutes() {
 
       <Route element={<AuthLayout />}>
         <Route path={AUTH_ROUTES.register} element={<RegisterPage />} />
-        {/* Login será registrado aqui. */}
+        <Route path={AUTH_ROUTES.login} element={<LoginPage />} />
       </Route>
 
-      <Route path={APP_ROUTES.root} element={<AppLayout />}>
-        <Route path={APP_ROUTES.actionDetail} element={<ActionDetailPage />} />
+      <Route element={<RequireAuth />}>
+        <Route path={APP_ROUTES.root} element={<AppLayout />}>
+          <Route
+            path={APP_ROUTES.actionDetail}
+            element={<ActionDetailPage />}
+          />
+        </Route>
       </Route>
     </Routes>
   )
