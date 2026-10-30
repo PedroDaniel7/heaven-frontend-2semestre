@@ -41,7 +41,7 @@ export function AppHeader() {
 
         <nav
           aria-label="Navegação da área logada"
-          className="order-last -mx-1 w-full overflow-x-auto lg:order-none lg:mx-0 lg:w-auto lg:flex-1 lg:overflow-visible"
+          className="order-last -mx-1 w-full overflow-x-auto overflow-y-hidden px-1 lg:order-none lg:mx-0 lg:w-auto lg:flex-1 lg:overflow-visible"
         >
           <ul className="flex items-center gap-1 lg:gap-3">
             {APP_NAV_ITEMS.map((item) => (
