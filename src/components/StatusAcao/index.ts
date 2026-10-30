@@ -1,0 +1,1 @@
+export { StatusAcao } from './StatusAcao'
