@@ -23,7 +23,7 @@ Fonte única para o Java e o front. Se algo precisar mudar, atualize este arquiv
 
 Códigos: `VALIDACAO` (400), `NAO_AUTENTICADO` (401), `PROIBIDO` (403), `NAO_ENCONTRADO` (404), `CONFLITO` (409), `REGRA` (422), `OFERTA_EXPIRADA` (409), `BANCO_INDISPONIVEL` (503), `ERRO_INTERNO` (500).
 
-O login confere a senha ANTES de revelar que a conta está inativa, para não vazar quais e-mails existem. Mensagem única para credencial inválida.
+O login confere a senha ANTES de revelar que a conta está inativa, para não vazar quais e-mails existem. Mensagem única para credencial inválida. Com a senha correta e a conta inativa, o login devolve 403 `PROIBIDO`. Um token de conta inativa em `/api/usuarios/me` (GET, PUT, DELETE) devolve 401 `NAO_AUTENTICADO`.
 
 ## Tipos
 
@@ -42,7 +42,7 @@ O login confere a senha ANTES de revelar que a conta está inativa, para não va
 | `GET /api/saude` | Público | — | 200 `{status, dataHora}` (sem banco; serve para acordar o servidor) | — |
 | `GET /api/saude/banco` | Público | — | 200 `{status, dataHora}` | 503 |
 | `POST /api/usuarios` | Público | `{nome, email, senha}` (senha ≥ 8) | 201 `Usuario` + `Location` | 400, 409 e-mail já usado |
-| `POST /api/auth/login` | Público | `{email, senha}` | 200 `{token, expiraEm, usuario}` | 400, 401 |
+| `POST /api/auth/login` | Público | `{email, senha}` | 200 `{token, expiraEm, usuario}` | 400, 401, 403 conta inativa |
 | `GET /api/usuarios/me` | Token | — | 200 `Usuario` | 401 |
 | `PUT /api/usuarios/me` | Token | `{nome, email, novaSenha?}` | 200 `Usuario` | 400, 401, 409 |
 | `DELETE /api/usuarios/me` | Token | — | 204 (desativa a conta: `INATIVO`) | 401 |
@@ -66,16 +66,37 @@ O login confere a senha ANTES de revelar que a conta está inativa, para não va
 | `POST /api/validacoes` | Token | `{idAcao, voto, justificativa?}` | 201 `{idAcao, voto, acaoConcluida}` | 400, 401, 403 autovalidação ou bloqueio, 404, 409 (`OFERTA_EXPIRADA`, voto duplicado ou ação concluída), 422 limite |
 | `GET /api/ranking?limite=20` | Público | `limite` de 1 a 100 | 200 lista `{posicao, nome, pontos, nivel, streak}` | 400 |
 
-O sorteio usa POST porque guarda a oferta por 10 minutos (em memória). Sem oferta válida, o voto devolve 409 `OFERTA_EXPIRADA` e o front pede novo sorteio.
+O sorteio usa POST porque guarda a oferta por 10 minutos (em memória). Por padrão, enquanto a oferta vale, novos sorteios devolvem a mesma ação; com `HEAVEN_SORTEIO_RESORTEAR=true` (modo de teste, nunca em produção) cada sorteio troca a oferta. Na votação, autovalidação (403) é checada antes da oferta (409). Sem oferta válida, o voto devolve 409 `OFERTA_EXPIRADA` e o front pede novo sorteio.
 
 ## Administração (header `X-Admin-Key`, valor em variável de ambiente `HEAVEN_ADMIN_KEY`)
 
-| Endpoint | Sucesso | Erros |
+As rotas `/api/admin/**` NÃO usam token Bearer: só a chave. A chave é comparada em tempo constante. Se `HEAVEN_ADMIN_KEY` não existir ou tiver menos de 24 caracteres, a API sobe normalmente e toda rota admin devolve 401 `NAO_AUTENTICADO`. Chave ausente ou errada também é 401.
+
+| Endpoint | Entrada | Sucesso | Erros |
+| --- | --- | --- | --- |
+| `GET /api/admin/tipos-acao` | — | 200 lista de `TipoAcaoAdmin` (todos, inclusive inativos, por id) | 401 |
+| `POST /api/admin/tipos-acao` | `TipoAcaoAdminEntrada` | 201 `TipoAcaoAdmin` | 400, 401, 409 nome repetido |
+| `PUT /api/admin/tipos-acao/{id}` | `TipoAcaoAdminEntrada` | 200 `TipoAcaoAdmin` | 400, 401, 404, 409 nome repetido |
+| `DELETE /api/admin/tipos-acao/{id}` | — | 204 | 401, 404, 409 em uso por ações (desative-o em vez de apagar) |
+
+`TipoAcaoAdminEntrada` espelha as colunas e os CHECKs de `TIPO_ACAO`:
+
+| Campo | Coluna | Regra |
 | --- | --- | --- |
-| `GET /api/admin/tipos-acao` | 200 todos, inclusive inativos | 401 |
-| `POST /api/admin/tipos-acao` | 201 | 400, 401, 409 nome repetido |
-| `PUT /api/admin/tipos-acao/{id}` | 200 | 400, 401, 404 |
-| `DELETE /api/admin/tipos-acao/{id}` | 204 | 401, 404, 409 em uso |
+| `nome` | `NOME` | obrigatório, até 100, único |
+| `desafio` | `DESCRICAO` | opcional, até 500 |
+| `categoria` | `CATEGORIA` | obrigatória: `TRANSPORTE`, `ENERGIA`, `AGUA`, `RECICLAGEM`, `PLANTIO`, `CONSUMO_CONSCIENTE` ou `OUTRO` |
+| `unidade` | `UNIDADE_MEDIDA` | obrigatória, até 20 |
+| `impactoAmbientalEstimado` | `IMPACTO_AMBIENTAL_ESTIMADO` | obrigatório, maior que 0, até 8 inteiros e 2 casas |
+| `pontosBase` | `PONTOS_BASE` | obrigatório, de 1 a 999999 |
+| `dificuldade` | `DIFICULDADE` | obrigatória: `FACIL`, `MEDIA` ou `DIFICIL` |
+| `ativo` | `STATUS_ATIVO` (`S`/`N`) | opcional: ausente = `true` no POST e mantém o valor atual no PUT |
+
+`TipoAcaoAdmin` = `{ id, nome, desafio, categoria, unidade, impactoAmbientalEstimado, pontosBase, dificuldade, ativo }`. Diferente do `TipoAcao` público, mostra os valores de cálculo e os inativos. O PUT substitui todos os campos (exceto `ativo` ausente). Mudar impacto ou pontos não altera ações já registradas (`pontosPrevistos` fica gravado na ação).
+
+## Documentação interativa
+
+Swagger UI em `/swagger-ui/index.html` e o JSON OpenAPI em `/v3/api-docs`, ambos públicos (springdoc-openapi 2.8.13). Cada endpoint traz exemplo de corpo e os códigos de erro; esta página continua sendo a fonte única.
 
 ## Decisões que afetam o contrato
 
