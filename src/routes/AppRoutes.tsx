@@ -4,7 +4,9 @@ import { RequireAuth } from '../components/RequireAuth'
 import { AppLayout } from '../layouts/AppLayout'
 import { AuthLayout } from '../layouts/AuthLayout'
 import { PublicLayout } from '../layouts/PublicLayout'
-import { ActionDetailPage } from '../pages/app/Actions'
+import { ActionDetailPage, NewActionPage } from '../pages/app/Actions'
+import { MinhasAcoesPage } from '../pages/app/MinhasAcoes'
+import { PainelPage } from '../pages/app/Painel'
 import { LoginPage } from '../pages/auth/Login'
 import { RegisterPage } from '../pages/auth/Register'
 import { ContatoPage } from '../pages/public/Contato'
@@ -44,10 +46,13 @@ export function AppRoutes() {
 
       <Route element={<RequireAuth />}>
         <Route path={APP_ROUTES.root} element={<AppLayout />}>
+          <Route index element={<PainelPage />} />
+          <Route path={APP_ROUTES.newAction} element={<NewActionPage />} />
           <Route
             path={APP_ROUTES.actionDetail}
             element={<ActionDetailPage />}
           />
+          <Route path={APP_ROUTES.myActions} element={<MinhasAcoesPage />} />
         </Route>
       </Route>
     </Routes>

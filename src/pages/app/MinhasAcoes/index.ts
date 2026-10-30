@@ -1,0 +1,1 @@
+export { MinhasAcoesPage } from './MinhasAcoesPage'
