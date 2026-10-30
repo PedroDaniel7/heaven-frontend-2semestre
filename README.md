@@ -122,6 +122,20 @@ npm run dev
 
 Depois, abra no navegador o endereço exibido no terminal (por padrão, `http://localhost:5173`).
 
+### Variáveis de ambiente
+
+O front consome a API Heaven (Java) pela URL definida em `VITE_API_URL`. Copie o exemplo e ajuste:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variável | Para que serve | Exemplo |
+| --- | --- | --- |
+| `VITE_API_URL` | URL base da API, sem barra no final | `http://localhost:8080` |
+
+O arquivo `.env.local` não é versionado. Na Vercel, defina `VITE_API_URL` em **Settings > Environment Variables** com a URL pública da API.
+
 ### Outros scripts
 
 | Comando | O que faz |
@@ -150,9 +164,19 @@ Para chegar à rota dinâmica pela interface: na Home, clique em **Acessar Paine
 
 https://github.com/PedroDaniel7/heaven-frontend-2semestre
 
+### URL da API publicada
+
+**PENDENTE** — URL pública da API Java ainda não informada.
+
+### URL do deploy na Vercel
+
+**PENDENTE** — deploy na Vercel ainda não realizado.
+
 ### Vídeo no YouTube
 
-https://youtu.be/7ldWPzAt4_s
+https://youtu.be/7ldWPzAt4_s (Sprint 3)
+
+**PENDENTE (Sprint 4)** — vídeo de até 3 minutos mostrando a integração com a API.
 
 ## Contato
 
