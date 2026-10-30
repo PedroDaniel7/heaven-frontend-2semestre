@@ -27,13 +27,14 @@ export const APP_ROUTES = {
   root: '/app',
   newAction: '/app/acoes/nova',
   actionDetail: '/app/acoes/:id',
+  myActions: '/app/minhas-acoes',
   validation: '/app/validar',
   ranking: '/app/ranking',
   profile: '/app/perfil',
 } as const
 
-/** URL de detalhe de uma ação (rota dinâmica `APP_ROUTES.actionDetail`). */
-export function actionDetailPath(id: string) {
+/** URL de detalhe de um tipo de ação (rota dinâmica `APP_ROUTES.actionDetail`). */
+export function actionDetailPath(id: number) {
   return `/app/acoes/${id}`
 }
 
@@ -44,6 +45,13 @@ export const ROUTES = {
 } as const
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES]
+
+/** Itens da navegação da área logada (as demais telas entram no T7b). */
+export const APP_NAV_ITEMS = [
+  { label: 'Painel', to: APP_ROUTES.root, end: true },
+  { label: 'Nova ação', to: APP_ROUTES.newAction, end: true },
+  { label: 'Minhas ações', to: APP_ROUTES.myActions, end: true },
+] as const
 
 /** Itens da navegação pública (08 da tarefa de migração). */
 export const PUBLIC_NAV_ITEMS = [

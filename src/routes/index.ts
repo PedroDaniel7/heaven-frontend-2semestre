@@ -1,5 +1,6 @@
 export { AppRoutes } from './AppRoutes'
 export {
+  APP_NAV_ITEMS,
   APP_ROUTES,
   AUTH_ROUTES,
   PUBLIC_NAV_ITEMS,
