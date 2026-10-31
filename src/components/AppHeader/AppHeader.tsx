@@ -56,7 +56,7 @@ export function AppHeader() {
 
         <div className="flex items-center gap-3">
           {usuario ? (
-            <span className="hidden max-w-40 truncate text-sm text-muted sm:inline">
+            <span className="hidden max-w-40 truncate text-sm text-muted xl:inline">
               {usuario.nome}
             </span>
           ) : null}

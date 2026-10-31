@@ -46,11 +46,14 @@ export const ROUTES = {
 
 export type RoutePath = (typeof ROUTES)[keyof typeof ROUTES]
 
-/** Itens da navegação da área logada (as demais telas entram no T7b). */
+/** Itens da navegação da área logada. */
 export const APP_NAV_ITEMS = [
   { label: 'Painel', to: APP_ROUTES.root, end: true },
   { label: 'Nova ação', to: APP_ROUTES.newAction, end: true },
   { label: 'Minhas ações', to: APP_ROUTES.myActions, end: true },
+  { label: 'Validar', to: APP_ROUTES.validation, end: true },
+  { label: 'Ranking', to: APP_ROUTES.ranking, end: true },
+  { label: 'Perfil', to: APP_ROUTES.profile, end: true },
 ] as const
 
 /** Itens da navegação pública (08 da tarefa de migração). */

@@ -7,6 +7,9 @@ import { PublicLayout } from '../layouts/PublicLayout'
 import { ActionDetailPage, NewActionPage } from '../pages/app/Actions'
 import { MinhasAcoesPage } from '../pages/app/MinhasAcoes'
 import { PainelPage } from '../pages/app/Painel'
+import { PerfilPage } from '../pages/app/Perfil'
+import { RankingPage } from '../pages/app/Ranking'
+import { ValidarPage } from '../pages/app/Validar'
 import { LoginPage } from '../pages/auth/Login'
 import { RegisterPage } from '../pages/auth/Register'
 import { ContatoPage } from '../pages/public/Contato'
@@ -53,6 +56,9 @@ export function AppRoutes() {
             element={<ActionDetailPage />}
           />
           <Route path={APP_ROUTES.myActions} element={<MinhasAcoesPage />} />
+          <Route path={APP_ROUTES.validation} element={<ValidarPage />} />
+          <Route path={APP_ROUTES.ranking} element={<RankingPage />} />
+          <Route path={APP_ROUTES.profile} element={<PerfilPage />} />
         </Route>
       </Route>
     </Routes>
