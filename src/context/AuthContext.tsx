@@ -9,7 +9,7 @@ import {
   salvarSessao,
 } from '../services/sessaoLocal'
 import type { SessaoSalva } from '../services/sessaoLocal'
-import type { Credenciais } from '../types/api'
+import type { Credenciais, Usuario } from '../types/api'
 import { AuthContext } from './contextoAuth'
 import type { AuthContextValue } from './contextoAuth'
 
@@ -41,6 +41,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSessao(nova)
   }, [])
 
+  const atualizarUsuario = useCallback((usuario: Usuario) => {
+    setSessao((atual) => {
+      if (!atual) return atual
+      const nova = { ...atual, usuario }
+      salvarSessao(nova)
+      return nova
+    })
+  }, [])
+
   // Token recusado pela API (expirado ou inválido): encerra a sessão local.
   useEffect(() => {
     definirAoSessaoExpirar(sair)
@@ -53,8 +62,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       estaAutenticado: sessao !== null,
       entrar,
       sair,
+      atualizarUsuario,
     }),
-    [sessao, entrar, sair],
+    [sessao, entrar, sair, atualizarUsuario],
   )
 
   return <AuthContext.Provider value={valor}>{children}</AuthContext.Provider>

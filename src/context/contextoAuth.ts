@@ -8,6 +8,8 @@ export interface AuthContextValue {
   estaAutenticado: boolean
   entrar: (credenciais: Credenciais) => Promise<void>
   sair: () => void
+  /** Atualiza o usuário guardado na sessão (ex.: depois de editar o perfil). */
+  atualizarUsuario: (usuario: Usuario) => void
 }
 
 export const AuthContext = createContext<AuthContextValue | null>(null)
