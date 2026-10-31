@@ -1,193 +1,94 @@
-# Heaven
+# Heaven — Front-end
 
-Plataforma de gamificação de ações sustentáveis. Este repositório contém o front-end do Heaven desenvolvido na Sprint 03 da disciplina Front-End Design Engineering (FIAP, turma 1TDSPW).
+Front-end do **Heaven**, plataforma de gamificação de ações sustentáveis. O usuário se cadastra, registra ações do dia a dia (transporte público, reciclagem, economia de energia), valida ações de outras pessoas de forma anônima e acompanha pontos, sequência de dias (streak), reputação e ranking. Ações aprovadas pela comunidade geram pontos.
 
-## Descrição
+Projeto de Front-End Design Engineering (FIAP, turma 1TDSPW), 2º semestre, Challenge. A aplicação é uma SPA em React que consome a API Java do projeto.
 
-**Problema.** Iniciativas de créditos de carbono e de recompensas ecológicas costumam depender de auditorias centralizadas, caras e lentas. Por isso, pequenas ações do dia a dia, como usar transporte público, reciclar ou economizar energia, dificilmente são validadas e recompensadas em larga escala.
+## Links
 
-**Proposta.** No Heaven, o usuário registra ações sustentáveis e outros membros da comunidade as validam, de forma distribuída e anônima. Ações aprovadas geram pontos e mantêm ativa a sequência de dias (streak), e quem valida corretamente ganha reputação e mais peso de voto.
-
-### O que esta entrega implementa
-
-Nesta sprint, as páginas HTML da Sprint 2 foram migradas para uma aplicação React de página única (SPA), e foram criadas as telas de Cadastro e de detalhe da ação. Não há backend, API, banco de dados nem autenticação: os dados são estáticos e as interações são simuladas no navegador. Envio de evidências, validação real pela comunidade e ranking fazem parte da proposta do produto, mas não desta entrega.
-
-- **Páginas públicas:** Home, Solução, Sobre, Integrantes, FAQ e Contato, com menu adaptado ao mobile.
-- **Solução, aba Dashboard:** indicadores de perfil de exemplo e formulário de registro de ação validado com React Hook Form, com confirmação simulada.
-- **Solução, aba Validar Ações:** uma ação pendente de exemplo, com os botões Aprovar e Rejeitar e a resposta de cada voto.
-- **Detalhe da ação:** rota dinâmica `/app/acoes/:id`, que mostra a ação correspondente ao `id` da URL ou avisa quando ela não existe.
-- **Cadastro:** formulário com validação de nome, e-mail, senha com no mínimo 8 caracteres, confirmação de senha e aceite dos termos. Nenhuma conta é criada.
-- **Responsividade:** layouts para mobile, tablet e desktop.
-- **Acessibilidade:** link para pular ao conteúdo principal, menu mobile que fecha com Esc, mensagens de confirmação anunciadas por leitores de tela e aviso nos links que abrem em nova aba.
-
-## Tecnologias utilizadas
-
-Versões principais declaradas no `package.json`:
-
-| Tecnologia | Versão | Uso no projeto |
-| --- | --- | --- |
-| React | 19 | Interface e componentização |
-| TypeScript | 6 | Linguagem do projeto (TSX), com tipagem de componentes, props e dados |
-| Vite | 8 | Servidor de desenvolvimento e build |
-| Tailwind CSS | 4 | Estilização da interface, via plugin `@tailwindcss/vite` |
-| React Router DOM | 7 | Rotas e navegação SPA |
-| React Hook Form | 7 | Validação de formulários |
-| oxlint | 1 | Análise estática do código |
-| Git e GitHub | — | Versionamento |
-
-O projeto também usa as fontes Cormorant Garamond e Inter, carregadas do Google Fonts, e o Node.js com npm para instalar as dependências e executar os scripts.
-
-## Estrutura de pastas
-
-Visão resumida das pastas principais:
-
-```text
-heaven-frontend-2semestre/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── assets/images/     # logo, composição de marca e fotos dos integrantes
-│   ├── components/        # componentes reutilizáveis: Button, Navbar, Footer, FaqItem, campos de formulário, ícones etc.
-│   ├── data/              # dados estáticos: ações, perguntas do FAQ e integrantes
-│   ├── features/auth/     # formulário de cadastro e seus tipos
-│   ├── layouts/           # PublicLayout, AuthLayout e AppLayout
-│   ├── pages/
-│   │   ├── public/        # Home, Sobre, Integrantes, FAQ, Contato e Solucao (Dashboard e Validar)
-│   │   ├── auth/Register/ # Cadastro
-│   │   └── app/Actions/   # detalhe da ação (rota dinâmica)
-│   ├── routes/            # árvore de rotas (AppRoutes.tsx) e caminhos (routeConfig.ts)
-│   ├── styles/            # globals.css: Tailwind e tokens do design system
-│   ├── types/             # tipos compartilhados
-│   ├── App.tsx
-│   └── main.tsx
-├── index.html
-├── package.json
-├── package-lock.json
-├── tsconfig.json          # e tsconfig.app.json, tsconfig.node.json
-├── vite.config.ts
-└── .oxlintrc.json
-```
-
-## Autores e créditos
-
-| Foto | Nome | RM | Turma | GitHub | LinkedIn |
-| --- | --- | --- | --- | --- | --- |
-| <img src="src/assets/images/members/arthur.jpg" alt="Foto de Arthur de Souza Lopes" width="90"> | Arthur de Souza Lopes | 573023 | 1TDSPW | [arthurlopes2007](https://github.com/arthurlopes2007) | [Perfil](https://www.linkedin.com/in/arthur-souza-lopes-037112346/) |
-| <img src="src/assets/images/members/lucas.png" alt="Foto de Lucas Bossi Cruz" width="90"> | Lucas Bossi Cruz | 572876 | 1TDSPW | [bsscrz](https://github.com/bsscrz) | [Perfil](https://www.linkedin.com/in/lucas-bossi-1a54443a3/) |
-| <img src="src/assets/images/members/pedro.webp" alt="Foto de Pedro Daniel Melo de Moraes" width="90"> | Pedro Daniel Melo de Moraes | 569786 | 1TDSPW | [PedroDaniel7](https://github.com/PedroDaniel7) | [Perfil](https://www.linkedin.com/in/pedrodanielmoraes/) |
-| <img src="src/assets/images/members/rick.jpg" alt="Foto de Rick Nascimento da Costa" width="90"> | Rick Nascimento da Costa | 571828 | 1TDSPW | [rcostaa-dev](https://github.com/rcostaa-dev) | [Perfil](https://www.linkedin.com/in/rick-nascimento-b063733b6/) |
-| <img src="src/assets/images/members/eduardo.png" alt="Foto de Eduardo Oliveira Conde" width="90"> | Eduardo Oliveira Conde | 573163 | 1TDSPW | [eduardo-oliveira-conde](https://github.com/eduardo-oliveira-conde) | [Perfil](https://www.linkedin.com/in/eduardo-conde-663213348/) |
-
-## Imagens e ícones
-
-### Identidade visual
-
-<img src="src/assets/images/cadastro-heaven.png" alt="Composição da marca Heaven: arco de luz sobre fundo verde-escuro com a frase “Toda jornada começa com uma escolha.”" width="320">
-
-Composição de marca exibida ao lado do formulário de Cadastro no desktop (`src/assets/images/cadastro-heaven.png`). A logo oficial fica em `src/assets/images/logo-heaven.png`; como o arquivo é branco, o componente `Logo` o usa como máscara para aplicar a cor do texto sobre fundos claros.
-
-### Capturas de tela
-
-<img width="1237" height="974" alt="image" src="https://github.com/user-attachments/assets/f9224922-e85f-4962-bbc5-151b20e322a0" />
-
-### Ícones do sistema
-
-Os ícones são SVGs inline definidos em `src/components/icons/index.tsx`, sem biblioteca de ícones.
-
-| Ícone | Onde aparece |
+| O quê | Endereço |
 | --- | --- |
-| `MenuIcon` e `CloseIcon` | Botão de abrir e fechar o menu mobile |
-| `ArrowRightIcon` | Botões e links de ação na Home, no Cadastro, no Dashboard e no detalhe da ação |
-| `ChevronDownIcon` | Perguntas do FAQ e campo de seleção do Dashboard |
-| `UserIcon`, `MailIcon` e `LockIcon` | Campos de nome, e-mail e senha do Cadastro |
-| `EyeIcon` e `EyeOffIcon` | Mostrar e ocultar a senha |
-| `MailIcon` e `PhoneIcon` | E-mails e telefones da página Contato |
+| Aplicação (Vercel) | https://heaven-frontend-2semestre.vercel.app |
+| API (Render) | https://heaven-java-api.onrender.com |
+| Swagger da API | https://heaven-java-api.onrender.com/swagger-ui/index.html |
+| Repositório do front | https://github.com/PedroDaniel7/heaven-frontend-2semestre |
+| Repositório da API (Java) | https://github.com/PedroDaniel7/heaven-java-api |
+| Contrato da API | [docs/contrato-api.md](docs/contrato-api.md) |
 
-## Como usar
+Vídeo: (a preencher)
 
-### Pré-requisitos
+> **Cold start:** a API roda no plano gratuito do Render e dorme quando fica sem uso. Na primeira visita depois de um tempo, o login ou o cadastro podem levar cerca de um minuto para responder. Tente de novo se a tela mostrar erro de rede.
 
-- Node.js 20.19+ ou 22.12+ (requisito do Vite 8)
-- npm
-- Git
+## Stack
 
-### Instalação e execução
+React 19, TypeScript 6, Vite 8, Tailwind CSS 4, React Router 7, React Hook Form 7 e oxlint.
+
+## Rotas
+
+| Rota | Tela | Acesso |
+| --- | --- | --- |
+| `/` | Home | público |
+| `/solucao` | Solução | público |
+| `/sobre` | Sobre | público |
+| `/integrantes` | Integrantes | público |
+| `/faq` | FAQ | público |
+| `/contato` | Contato | público |
+| `/cadastro` | Cadastro | público |
+| `/login` | Login | público |
+| `/app` | Painel | logado |
+| `/app/acoes/nova` | Registrar nova ação | logado |
+| `/app/acoes/:id` | Detalhe de um tipo de ação | logado |
+| `/app/minhas-acoes` | Minhas ações | logado |
+| `/app/validar` | Validar ações de outros usuários | logado |
+| `/app/ranking` | Ranking | logado |
+| `/app/perfil` | Perfil (edição e desativação da conta) | logado |
+
+Quem não está logado e abre uma rota `/app` é redirecionado para o login.
+
+## Como rodar
+
+Pré-requisitos: Node.js 20.19+ ou 22.12+ e npm.
 
 ```bash
-git clone https://github.com/PedroDaniel7/heaven-frontend-2semestre.git
-cd heaven-frontend-2semestre
-npm install
-npm run dev
+npm i
 ```
 
-Depois, abra no navegador o endereço exibido no terminal (por padrão, `http://localhost:5173`).
-
-### Variáveis de ambiente
-
-O front consome a API Heaven (Java) pela URL definida em `VITE_API_URL`. Copie o exemplo e ajuste:
+Crie o arquivo `.env.local` a partir do exemplo e preencha `VITE_API_URL` com a URL base da API, sem barra no final (a API local sobe em `http://localhost:8080`):
 
 ```bash
 cp .env.example .env.local
 ```
 
-| Variável | Para que serve | Exemplo |
-| --- | --- | --- |
-| `VITE_API_URL` | URL base da API, sem barra no final | `http://localhost:8080` |
+```bash
+npm run dev
+```
 
-O arquivo `.env.local` não é versionado. Na Vercel, defina `VITE_API_URL` em **Settings > Environment Variables** com a URL pública da API.
-
-### Outros scripts
+O front abre em `http://localhost:5173`. O `.env.local` não é versionado.
 
 | Comando | O que faz |
 | --- | --- |
-| `npm run build` | Verifica os tipos e gera a versão de produção em `dist/` |
-| `npm run preview` | Serve localmente a versão gerada pelo build |
-| `npm run lint` | Analisa o código com o oxlint |
-| `npm run typecheck` | Verifica os tipos com o TypeScript |
+| `npm run dev` | servidor de desenvolvimento |
+| `npm run build` | verifica os tipos e gera `dist/` |
+| `npm run preview` | serve localmente o build |
+| `npm run lint` | análise estática com oxlint |
+| `npm run typecheck` | verificação de tipos |
 
-### Navegação
+## Deploy na Vercel
 
-| Rota | Conteúdo |
+O front é publicado na Vercel. Em **Settings > Environment Variables** do projeto, defina `VITE_API_URL` com a URL pública da API; o valor é embutido no build, então é preciso publicar de novo depois de alterá-lo. O `vercel.json` redireciona todas as rotas para `index.html`, o que permite abrir `/app/ranking` e as demais direto pela URL.
+
+A API precisa liberar a origem do front na variável `HEAVEN_CORS_ORIGINS` (CORS).
+
+## Integração com a API
+
+Toda comunicação passa por `src/services/` (um módulo por recurso), sobre o cliente `http.ts`. O contrato completo — endpoints, corpos, códigos de erro e regras — está em [docs/contrato-api.md](docs/contrato-api.md), a mesma cópia mantida no repositório da API. O front decide pelo campo `codigo` dos erros, nunca pelo texto da mensagem. Depois do login, o token e os dados do usuário ficam salvos no navegador e vão no header `Authorization: Bearer` das rotas protegidas.
+
+## Integrantes
+
+| Nome | RM |
 | --- | --- |
-| `/` | Home |
-| `/solucao` | Solução, com as abas Dashboard e Validar Ações |
-| `/sobre` | Sobre |
-| `/integrantes` | Integrantes |
-| `/faq` | FAQ |
-| `/contato` | Contato |
-| `/cadastro` | Cadastro, acessado diretamente pela URL |
-| `/app/acoes/:id` | Detalhe de uma ação: `transporte`, `energia` ou `reciclagem` |
-
-Para chegar à rota dinâmica pela interface: na Home, clique em **Acessar Painel**; no Dashboard, escolha um tipo de impacto e clique em **Ver detalhes desta ação**.
-
-### Repositório no GitHub
-
-https://github.com/PedroDaniel7/heaven-frontend-2semestre
-
-### URL da API publicada
-
-**PENDENTE** — URL pública da API Java ainda não informada.
-
-### URL do deploy na Vercel
-
-**PENDENTE** — deploy na Vercel ainda não realizado.
-
-### Vídeo no YouTube
-
-https://youtu.be/7ldWPzAt4_s (Sprint 3)
-
-**PENDENTE (Sprint 4)** — vídeo de até 3 minutos mostrando a integração com a API.
-
-## Contato
-
-Para falar com a equipe, escreva para qualquer integrante:
-
-| Integrante | E-mail |
-| --- | --- |
-| Arthur de Souza Lopes | arthurdesouzalopes635@gmail.com |
-| Lucas Bossi Cruz | lucabossicruz@gmail.com |
-| Pedro Daniel Melo de Moraes | pedrodaniel.mmoraes@gmail.com |
-| Rick Nascimento da Costa | rickgodinhotk7@gmail.com |
-| Eduardo Oliveira Conde | edu.conde021@gmail.com |
-
-Os telefones dos integrantes estão na página Contato da aplicação (`/contato`).
+| Arthur de Souza | 573023 |
+| Eduardo Oliveira | 573163 |
+| Lucas Bossi | 572876 |
+| Pedro Moraes | 569786 |
+| Rick Nascimento | 571828 |
