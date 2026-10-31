@@ -1,25 +1,54 @@
-import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-import { DashboardPanel } from './Dashboard'
-import { ValidarPanel } from './Validar'
+import { ButtonLink } from '../../../components/Button'
+import { ArrowRightIcon } from '../../../components/icons'
+import { useAuth } from '../../../hooks/useAuth'
+import { APP_ROUTES, AUTH_ROUTES } from '../../../routes'
 
-type SolucaoTab = 'dashboard' | 'validar'
-
-const TABS: { id: SolucaoTab; label: string }[] = [
-  { id: 'dashboard', label: 'Dashboard' },
-  { id: 'validar', label: 'Validar Ações' },
+/** Atalhos para as telas reais da área logada. */
+const ATALHOS = [
+  {
+    titulo: 'Painel',
+    texto: 'Seus pontos, sua sequência, sua reputação e suas últimas ações.',
+    to: APP_ROUTES.root,
+  },
+  {
+    titulo: 'Registrar ação',
+    texto: 'Registre uma ação sustentável e envie a evidência para a comunidade.',
+    to: APP_ROUTES.newAction,
+  },
+  {
+    titulo: 'Minhas ações',
+    texto: 'Acompanhe o status de cada ação e cancele as que ainda estão pendentes.',
+    to: APP_ROUTES.myActions,
+  },
+  {
+    titulo: 'Validar ações',
+    texto: 'Audite, de forma anônima, a evidência de outros usuários e vote.',
+    to: APP_ROUTES.validation,
+  },
+  {
+    titulo: 'Ranking',
+    texto: 'Veja quem mais pontua na comunidade.',
+    to: APP_ROUTES.ranking,
+  },
+  {
+    titulo: 'Perfil',
+    texto: 'Edite seus dados ou desative sua conta.',
+    to: APP_ROUTES.profile,
+  },
 ]
 
 /**
  * Solução do Projeto — página pública obrigatória da Sprint 2
  * (04-screen-specs.md §5).
  *
- * As duas interfaces do legado (`solucao-dashboard.html` e
- * `solucao-validar.html`) convivem aqui em abas, sem virar rotas
- * próprias (03-architecture.md §15).
+ * As interfaces do legado (`solucao-dashboard.html` e
+ * `solucao-validar.html`) agora existem como telas reais em `/app`,
+ * ligadas à API; esta página apenas leva até elas.
  */
 export function SolucaoPage() {
-  const [activeTab, setActiveTab] = useState<SolucaoTab>('dashboard')
+  const { estaAutenticado } = useAuth()
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
@@ -31,45 +60,42 @@ export function SolucaoPage() {
         </p>
       </header>
 
-      <div
-        role="tablist"
-        aria-label="Interfaces da solução"
-        className="mt-10 inline-flex rounded-md border border-border bg-surface p-1"
-      >
-        {TABS.map((tab) => {
-          const isActive = activeTab === tab.id
+      {estaAutenticado ? null : (
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <ButtonLink to={AUTH_ROUTES.register} fullWidth={false}>
+            Criar minha conta
+          </ButtonLink>
+          <ButtonLink
+            to={AUTH_ROUTES.login}
+            variant="secondary"
+            fullWidth={false}
+          >
+            Entrar
+          </ButtonLink>
+        </div>
+      )}
 
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              role="tab"
-              id={`tab-${tab.id}`}
-              aria-selected={isActive}
-              aria-controls={`painel-${tab.id}`}
-              onClick={() => setActiveTab(tab.id)}
-              className={[
-                'rounded px-5 py-2 text-sm transition-colors outline-none',
-                'focus-visible:ring-2 focus-visible:ring-primary/30',
-                isActive
-                  ? 'bg-primary font-medium text-canvas'
-                  : 'text-body hover:text-primary',
-              ].join(' ')}
+      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {ATALHOS.map((atalho) => (
+          <li key={atalho.to}>
+            <Link
+              to={atalho.to}
+              className="group flex h-full flex-col rounded-lg border border-border bg-surface p-6 transition-colors outline-none hover:border-primary focus-visible:ring-2 focus-visible:ring-primary/30"
             >
-              {tab.label}
-            </button>
-          )
-        })}
-      </div>
-
-      <div
-        role="tabpanel"
-        id={`painel-${activeTab}`}
-        aria-labelledby={`tab-${activeTab}`}
-        className="mt-10"
-      >
-        {activeTab === 'dashboard' ? <DashboardPanel /> : <ValidarPanel />}
-      </div>
+              <h2 className="font-serif text-2xl font-medium text-ink">
+                {atalho.titulo}
+              </h2>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-body">
+                {atalho.texto}
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-link">
+                Abrir
+                <ArrowRightIcon className="h-3.5 w-3.5" />
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
