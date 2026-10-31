@@ -43,6 +43,19 @@ Nesta sprint o front deixou de usar dados estáticos: é uma aplicação React d
 | `/app/ranking` | Login | Ranking |
 | `/app/perfil` | Login | Perfil |
 
+### Páginas da solução
+
+| Tela | Rota | O que faz | Endpoints da API |
+| --- | --- | --- | --- |
+| Solução | `/solucao` | Apresenta a solução e leva às telas da área logada por seis atalhos; para quem não entrou, mostra os botões de cadastro e login | Nenhum |
+| Painel | `/app` | Mostra pontos, sequência (streak), reputação e nível do usuário e as 5 últimas ações | `GET /api/usuarios/me`, `GET /api/acoes/minhas` |
+| Nova ação | `/app/acoes/nova` | Registra uma ação sustentável com tipo, quantidade e evidência | `GET /api/tipos-acao`, `POST /api/acoes` |
+| Minhas ações | `/app/minhas-acoes` | Lista o histórico com o status de cada ação e cancela as pendentes, com confirmação | `GET /api/acoes/minhas`, `DELETE /api/acoes/{id}` |
+| Validar | `/app/validar` | Sorteia uma ação anônima de outro usuário e registra o voto de aprovação ou reprovação | `POST /api/validacoes/sorteio`, `POST /api/validacoes` |
+| Ranking | `/app/ranking` | Mostra os 20 usuários com mais pontos e destaca o próprio usuário | `GET /api/ranking?limite=20`, `GET /api/usuarios/me` |
+| Perfil | `/app/perfil` | Mostra os dados da conta, edita nome, e-mail e senha e desativa a conta | `GET /api/usuarios/me`, `PUT /api/usuarios/me`, `DELETE /api/usuarios/me` |
+| Detalhe do tipo de ação | `/app/acoes/:id` | Mostra categoria, unidade, dificuldade e desafio de um tipo de ação; id inexistente exibe "Ação não encontrada" | `GET /api/tipos-acao/{id}` |
+
 ## Tecnologias utilizadas
 
 Versões principais declaradas no `package.json`:
