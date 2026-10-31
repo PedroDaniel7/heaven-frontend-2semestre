@@ -23,6 +23,23 @@ Vídeo: (a preencher)
 
 React 19, TypeScript 6, Vite 8, Tailwind CSS 4, React Router 7, React Hook Form 7 e oxlint.
 
+## Estrutura de pastas
+
+```text
+src/
+├── pages/        # telas: public (Home, Solução, Sobre...), auth (Login, Cadastro) e app (área logada)
+├── components/   # componentes reutilizáveis: Button, Input, Navbar, RequireAuth, StatusAcao etc.
+├── services/     # chamadas à API, um módulo por recurso, sobre o cliente http.ts
+├── context/      # AuthContext: sessão do usuário logado
+├── hooks/        # useAuth, useApi e outros hooks
+├── types/        # tipos TypeScript, inclusive os do contrato da API
+├── routes/       # mapa de rotas (routeConfig.ts) e árvore de rotas (AppRoutes.tsx)
+├── layouts/      # PublicLayout, AuthLayout e AppLayout
+├── features/ data/ utils/ styles/ assets/   # formulários, dados estáticos, utilitários, Tailwind e imagens
+├── App.tsx
+└── main.tsx
+```
+
 ## Rotas
 
 | Rota | Tela | Acesso |
