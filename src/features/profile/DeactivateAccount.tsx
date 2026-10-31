@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/Button'
 import { AvisoServidor } from '../../components/EstadoApi'
@@ -11,7 +10,6 @@ import { comoApiError, mensagemPadrao } from '../../utils/mensagemErro'
 /** Desativação da conta (DELETE /usuarios/me), com confirmação; depois sai e volta à página inicial. */
 export function DeactivateAccount() {
   const { sair } = useAuth()
-  const navigate = useNavigate()
   const [confirmando, setConfirmando] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState<string | null>(null)
@@ -26,8 +24,10 @@ export function DeactivateAccount() {
       setEnviando(false)
       return
     }
+    // Com a sessão apagada o RequireAuth levaria ao login antes do `navigate`
+    // terminar; recarregar na página inicial evita a corrida.
     sair()
-    navigate(PUBLIC_ROUTES.home, { replace: true })
+    window.location.replace(PUBLIC_ROUTES.home)
   }
 
   return (
