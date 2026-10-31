@@ -1,0 +1,1 @@
+export { ValidarPage } from './ValidarPage'
