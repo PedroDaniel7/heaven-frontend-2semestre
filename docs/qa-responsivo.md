@@ -45,3 +45,39 @@ Conta de teste usada nas telas de `/app`: `arthur-teste0111@example.test`.
 | Ranking | /app/ranking | OK | Lista em formato de tabela (posição, nome, pontos, nível, streak), colunas alinhadas, sem overflow. | Testado no navegador |
 | Perfil | /app/perfil | OK | Cartões de estatísticas em grid 2x2; "Seus dados" legível. Menu de /app não precisa rolar nesta largura. | Testado no navegador |
 | Detalhe de ação | /app/acoes/1 | OK | Página de detalhe legível, sem overflow. | Testado no navegador |
+
+## 992 px
+
+| Tela | Rota | Resultado | Observação | Como foi verificado |
+| --- | --- | --- | --- | --- |
+| Home | / | OK | Menu público completo (Home, Solução, Sobre, Integrantes, FAQ, Contato) horizontal no cabeçalho, sem rolagem. | Testado no navegador |
+| Solução | /solucao | OK | Cards em grid 3 colunas. | Testado no navegador |
+| Sobre | /sobre | OK | Texto corrido com boa largura de leitura. | Testado no navegador |
+| Integrantes | /integrantes | OK | 5 cards em grid 3 colunas (3+2), sem overflow. | Testado no navegador |
+| FAQ | /faq | OK | Acordeões centralizados, sem overflow. | Testado no navegador |
+| Contato | /contato | OK | Cards em grid 3 colunas; e-mails longos quebram em 2 linhas dentro do card (sem estourar o container). | Testado no navegador |
+| Cadastro | /cadastro | OK | Formulário passa a dividir a tela com imagem/ilustração decorativa ao lado, sem overflow. | Testado no navegador |
+| Login | /login | OK | Com sessão ativa, redireciona automaticamente para /app. | Testado no navegador |
+| Painel | /app | OK | "Seu Perfil" e "Últimas ações" lado a lado em grid 2 colunas. | Testado no navegador |
+| Nova ação | /app/acoes/nova | OK | Formulário centralizado, largura confortável. | Testado no navegador |
+| Minhas ações | /app/minhas-acoes | OK | Estado vazio exibido corretamente. | Testado no navegador |
+| Validar | /app/validar | OK | Card de auditoria legível. Ação pendente ID #36 nesta tela novamente — não foi votada. | Testado no navegador |
+| Ranking | /app/ranking | OK | Tabela com todas as colunas visíveis, sem overflow. | Testado no navegador |
+| Perfil | /app/perfil | OK | Cartões de estatísticas em grid 4 colunas; seção "Desativar conta" visível e usada ao final do QA para encerrar a conta de teste. | Testado no navegador |
+| Detalhe de ação | /app/acoes/1 | OK | Página de detalhe legível, sem overflow. | Testado no navegador |
+
+## Conclusão
+
+**Telas avaliadas por largura:** 15 telas em 480 px, 15 em 768 px e 15 em 992 px — total de 45 verificações, todas no navegador (Chrome, DevTools em modo responsivo), no site de produção.
+
+**Resultado geral:** todas as 45 combinações tela × largura ficaram **OK**. Nenhuma rolagem horizontal da página foi encontrada em nenhuma largura testada.
+
+**Problemas CORRIGIDOS neste PR:** nenhum problema de responsividade foi encontrado nos arquivos permitidos (`IntegrantesPage.tsx`, `PersonCard.tsx`, `members.ts`); a única mudança de código do PR (exibir a turma no card de integrante) foi verificada nas três larguras sem causar quebra de layout.
+
+**Problemas REGISTRADOS (não corrigidos, fora dos arquivos permitidos):** nenhum encontrado.
+
+**Itens N/T (não testado):** nenhum — as 15 telas foram verificadas nas três larguras, incluindo as telas de `/app` com uma conta de teste criada especificamente para este QA (`arthur-teste0111@example.test`, desativada ao final pelo botão "Desativar conta" do perfil).
+
+**Observações conhecidas (registradas como OK, não como problema):**
+- Em 480 px, o menu de `/app` (Painel, Nova ação, Minhas ações, Validar, Ranking, Perfil) rola horizontalmente dentro da própria barra — comportamento intencional.
+- Durante os testes, as ações pendentes de ID #33 a #36 apareceram na tela Validar; nenhuma delas foi aprovada ou reprovada, conforme instrução.
