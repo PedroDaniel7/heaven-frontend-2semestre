@@ -72,7 +72,7 @@ Conta de teste usada nas telas de `/app`: `arthur-teste0111@example.test`. A tel
 
 **Resultado geral:** 45 OK, 0 CORRIGIDO, 0 REGISTRADO, 0 N/T. Nenhuma rolagem horizontal da página (`scrollWidth` vs `clientWidth`) foi encontrada em nenhuma das 45 combinações tela × largura.
 
-**Problemas CORRIGIDOS neste PR:** nenhum problema de responsividade foi encontrado nos arquivos permitidos (`IntegrantesPage.tsx`, `PersonCard.tsx`, `members.ts`); a única mudança de código do PR (exibir a turma no card de integrante) foi verificada nas três larguras sem causar quebra de layout.
+**Problemas CORRIGIDOS neste PR:** nenhum problema de responsividade foi encontrado nos arquivos alterados (`IntegrantesPage.tsx`, `members.ts` e `member.ts`); a única mudança de código do PR (exibir a turma no card de integrante) não alterou `PersonCard.tsx`. O layout de `/integrantes` foi conferido nas três larguras, sem overflow; a presença do texto 'Turma' em cada card não foi registrada neste QA.
 
 **Problemas REGISTRADOS (não corrigidos, fora dos arquivos permitidos):** nenhum encontrado.
 

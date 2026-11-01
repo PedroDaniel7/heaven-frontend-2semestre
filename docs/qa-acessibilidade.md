@@ -1,6 +1,6 @@
 # QA de acessibilidade
 
-Data: 01/11/2026. Site verificado: `npm run dev` (http://localhost:5173) apontando para a API gratuita do projeto. Navegador: navegador embutido do app Claude (Chromium), não o Chrome instalado. Responsável: Lucas Bossi Cruz.
+Data: 01/11/2026. Site verificado: `npm run dev` (http://localhost:5173) apontando para a API gratuita do projeto. Navegador: navegador embutido (baseado em Chromium), não o Google Chrome instalado. Responsável: Lucas Bossi Cruz.
 
 Legenda: OK = sem problema; REGISTRADO = problema achado e não corrigido (com gravidade leve, média ou grave e arquivo provável); N/T = não testado (explique).
 
@@ -152,4 +152,4 @@ Lighthouse (categoria Accessibility) em Home, Cadastro e Painel: N/T, não foi e
 - Erros que vêm da API e a troca de estado do botão "Mostrar senha".
 - Contagem regressiva da tela Validar ("Oferta válida por mais ..."): não verifiquei se é anunciada nem se há como estender o prazo.
 - Zoom em 200% e reflow; contraste do contorno de foco, de texto sobre imagem ou degradê, e de links dentro de parágrafos; contraste medido por categoria.
-- O navegador usado foi o embutido do app Claude (Chromium), não o Chrome instalado.
+- O navegador usado foi o embutido (baseado em Chromium), não o Google Chrome instalado.

@@ -1,6 +1,6 @@
 # QA de estados de erro
 
-Data: 01/11/2026. Site verificado: `npm run dev` (http://localhost:5173) apontando para a API https://heaven-java-api.onrender.com. Navegador: navegador embutido do app Claude (baseado em Chromium; não foi o Google Chrome). Responsável: Eduardo Oliveira Conde.
+Data: 01/11/2026. Site verificado: `npm run dev` (http://localhost:5173) apontando para a API https://heaven-java-api.onrender.com. Navegador: navegador embutido (baseado em Chromium), não o Google Chrome instalado. Responsável: Eduardo Oliveira Conde.
 
 Legenda: OK = a tela mostra mensagem clara em português e não quebra; PROBLEMA = comportamento ruim (descreva); N/T = não testado (explique o motivo).
 
