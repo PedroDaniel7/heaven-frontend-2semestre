@@ -45,7 +45,7 @@ export function ActionDetailPage() {
   useEffect(() => {
     const previousTitle = document.title
     if (tipo) document.title = `${tipo.nome} — ${APP_NAME}`
-    else if (naoEncontrado) document.title = `Ação não encontrada — ${APP_NAME}`
+    else if (naoEncontrado) document.title = `Tipo de ação não encontrado — ${APP_NAME}`
 
     return () => {
       document.title = previousTitle
@@ -70,10 +70,10 @@ export function ActionDetailPage() {
         {naoEncontrado ? (
           <section>
             <h1 className="font-serif text-4xl text-ink">
-              Ação não encontrada
+              Tipo de ação não encontrado
             </h1>
             <p className="mt-3 leading-relaxed text-body">
-              Não existe uma ação com o identificador informado.
+              Não existe um tipo de ação com o identificador informado.
             </p>
             <ButtonLink
               to={APP_ROUTES.newAction}
