@@ -25,3 +25,23 @@ Conta de teste usada nas telas de `/app`: `arthur-teste0111@example.test`.
 | Ranking | /app/ranking | OK | Lista de usuários em coluna única, sem corte de texto nem overflow. | Testado no navegador |
 | Perfil | /app/perfil | OK | Dados do perfil e formulário "Seus dados" legíveis. Menu/cabeçalho de /app rola na horizontal dentro da barra nesta largura — comportamento intencional (nota do enunciado), registrado como OK. | Testado no navegador |
 | Detalhe de ação | /app/acoes/1 | OK | Página de detalhe do tipo de ação ("Uso de transporte público") legível, sem overflow. | Testado no navegador |
+
+## 768 px
+
+| Tela | Rota | Resultado | Observação | Como foi verificado |
+| --- | --- | --- | --- | --- |
+| Home | / | OK | Título em uma só linha do hero, botões lado a lado, sem rolagem horizontal. | Testado no navegador |
+| Solução | /solucao | OK | Cards em grid 2 colunas, sem overflow. | Testado no navegador |
+| Sobre | /sobre | OK | Texto corrido legível, sem overflow. | Testado no navegador |
+| Integrantes | /integrantes | OK | 5 cards em grid 2 colunas, sem quebra de layout (foto de 1 integrante ainda carregando no momento da captura, comportamento esperado do `loading="lazy"`). | Testado no navegador |
+| FAQ | /faq | OK | Acordeões ocupam a largura central, sem overflow. | Testado no navegador |
+| Contato | /contato | OK | Cards em grid 2 colunas, e-mail/telefone legíveis. | Testado no navegador |
+| Cadastro | /cadastro | OK | Formulário centralizado, sem overflow. | Testado no navegador |
+| Login | /login | OK | Com sessão ativa, redireciona automaticamente para /app. | Testado no navegador |
+| Painel | /app | OK | Menu de /app (Painel, Nova ação, Minhas ações, Validar, Ranking, Perfil) cabe inteiro na barra, sem rolagem horizontal nesta largura. | Testado no navegador |
+| Nova ação | /app/acoes/nova | OK | Formulário legível, campos com largura confortável. | Testado no navegador |
+| Minhas ações | /app/minhas-acoes | OK | Estado vazio exibido corretamente, botão "Registrar nova ação" alinhado à direita do título. | Testado no navegador |
+| Validar | /app/validar | OK | Botões Aprovar/Reprovar lado a lado. Ação pendente ID #36 nesta tela novamente — não foi votada. | Testado no navegador |
+| Ranking | /app/ranking | OK | Lista em formato de tabela (posição, nome, pontos, nível, streak), colunas alinhadas, sem overflow. | Testado no navegador |
+| Perfil | /app/perfil | OK | Cartões de estatísticas em grid 2x2; "Seus dados" legível. Menu de /app não precisa rolar nesta largura. | Testado no navegador |
+| Detalhe de ação | /app/acoes/1 | OK | Página de detalhe legível, sem overflow. | Testado no navegador |
