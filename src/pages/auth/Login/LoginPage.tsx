@@ -6,9 +6,12 @@ import { LoginForm } from '../../../features/auth/forms'
 import { useAuth } from '../../../hooks/useAuth'
 import { APP_ROUTES, AUTH_ROUTES } from '../../../routes'
 
+/** Estado enviado pelo RequireAuth ao redirecionar para o login. */
+type EstadoRedirecionamento = { de?: { pathname?: unknown } } | null
+
 /** Destino pedido antes do redirecionamento ao login (guardado pelo RequireAuth). */
-function destinoDepoisDoLogin(state: unknown): string {
-  const de = (state as { de?: { pathname?: unknown } } | null)?.de?.pathname
+function destinoDepoisDoLogin(state: EstadoRedirecionamento): string {
+  const de = state?.de?.pathname
   return typeof de === 'string' && de.startsWith('/app') ? de : APP_ROUTES.root
 }
 
@@ -16,9 +19,10 @@ function destinoDepoisDoLogin(state: unknown): string {
 export function LoginPage() {
   const { estaAutenticado } = useAuth()
   const local = useLocation()
+  const estado = local.state as EstadoRedirecionamento
 
   if (estaAutenticado) {
-    return <Navigate to={destinoDepoisDoLogin(local.state)} replace />
+    return <Navigate to={destinoDepoisDoLogin(estado)} replace />
   }
 
   return (
@@ -34,7 +38,15 @@ export function LoginPage() {
         </p>
       </div>
 
-      <div className="mt-9">
+      <div role="status" aria-live="polite" aria-atomic="true">
+        {estado?.de ? (
+          <p className="mt-9 rounded-md bg-primary/8 px-4 py-3 text-sm font-medium text-primary">
+            Faça login para acessar esta página.
+          </p>
+        ) : null}
+      </div>
+
+      <div className={estado?.de ? 'mt-6' : 'mt-9'}>
         <LoginForm />
       </div>
 
