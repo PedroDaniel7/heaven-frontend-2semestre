@@ -73,3 +73,83 @@ Observações dos formulários:
 - Os botões "Mostrar senha" (Cadastro, Login e Perfil) têm `aria-label="Mostrar senha"` e `aria-pressed="false"`. Troca do rótulo e do estado ao acionar: N/T (só foram focados).
 - Erros que vêm da API (por exemplo senha errada no Login): N/T; só vi a mensagem de conta desativada na tela, sem verificar se ela é anunciada por leitor de tela.
 - REGISTRADO (leve), anúncio parcial dos erros: `role="alert"` ou `aria-live` com o texto do erro faria o leitor de tela falar o resumo dos erros ao enviar. Arquivo provável: `src/components/Input/Input.tsx`, `src/components/Textarea/Textarea.tsx`, `src/components/Select/Select.tsx`, `src/components/PasswordInput/PasswordInput.tsx` e `src/components/Checkbox/Checkbox.tsx`.
+
+## Imagens e ícones
+
+Verificado no navegador, lendo o DOM de cada tela: todas as tags `img` (atributo `alt`), todos os `svg` (se estão escondidos do leitor de tela com `aria-hidden="true"`, ou têm `aria-label`/`title`) e se há imagens de fundo em CSS.
+
+| Tela | Rota | Imagens (`img`) | Ícones (`svg`) | Resultado |
+|---|---|---|---|---|
+| Home | `/` | Nenhuma | 2, todos com `aria-hidden` | OK |
+| Solução | `/solucao` | Nenhuma | 7, todos com `aria-hidden` | OK |
+| Sobre | `/sobre` | Nenhuma | 1, com `aria-hidden` | OK |
+| Integrantes | `/integrantes` | 5 fotos, `alt="Foto de <nome do integrante>"` | 1, com `aria-hidden` | OK: o texto alternativo é útil e identifica a pessoa |
+| FAQ | `/faq` | Nenhuma | 4, todos com `aria-hidden` | OK |
+| Contato | `/contato` | 5 fotos, `alt="Foto de <nome do integrante>"` | 11, todos com `aria-hidden` | OK |
+| Cadastro | `/cadastro` | 1 ilustração lateral com `alt=""` | 9, todos com `aria-hidden` | OK: `alt` vazio é o correto para imagem só decorativa. Pelo que vi na tela, é uma ilustração; não conferi se a frase sobreposta é texto HTML ou parte da imagem |
+| Login | `/login` | 1 ilustração lateral com `alt=""` | 5, todos com `aria-hidden` | OK, mesma observação do Cadastro |
+| 404 | `/xyz` | Nenhuma | 1, com `aria-hidden` | OK |
+| Painel | `/app` | Nenhuma | 0 | OK |
+| Nova ação | `/app/acoes/nova` | Nenhuma | 2, todos com `aria-hidden` | OK |
+| Minhas ações | `/app/minhas-acoes` | Nenhuma | 0 | OK |
+| Validar | `/app/validar` | Nenhuma | 0 | OK |
+| Ranking | `/app/ranking` | Nenhuma | 0 | OK |
+| Perfil | `/app/perfil` | Nenhuma | 4, todos com `aria-hidden` | OK |
+| Detalhe | `/app/acoes/1` | Nenhuma | 1, com `aria-hidden` | OK |
+
+Nenhuma tela tem imagem de fundo em CSS. N/T: o emoji 🔥 usado no Painel e no Ranking (sequência de dias) é texto, não imagem; como um leitor de tela o fala não foi testado.
+
+## Contraste
+
+Verificado por script no navegador, e não pelo seletor de cor do DevTools: para cada trecho de texto visível, o script calcula a razão de contraste entre a cor do texto e a cor de fundo opaca mais próxima nos elementos pais, e compara com o mínimo de 4,5:1 (3:1 para texto grande, a partir de 24 px, ou 18,66 px em negrito). Texto principal, texto secundário, links e botões foram medidos em conjunto, sem separar por categoria. Fica de fora da medição: placeholders, texto sobre imagem ou degradê, sombras, estados de hover e de foco, e a cor do contorno do foco.
+
+| Tela | Rota | Menor razão encontrada | Textos abaixo do mínimo | Resultado |
+|---|---|---|---|---|
+| Home | `/` | 10,13:1 | Nenhum | OK |
+| Solução | `/solucao` | 8,2:1 | Nenhum | OK |
+| Sobre | `/sobre` | 4,71:1 | Nenhum | OK |
+| Integrantes | `/integrantes` | 5,13:1 | Nenhum | OK |
+| FAQ | `/faq` | 10,13:1 | Nenhum | OK |
+| Contato | `/contato` | 8,2:1 | Nenhum | OK |
+| Cadastro | `/cadastro` | 4,71:1 | Nenhum | OK |
+| Login | `/login` | 4,71:1 | Nenhum | OK |
+| 404 | `/xyz` | 10,13:1 | Nenhum | OK |
+| Painel | `/app` | 5,13:1 | Nenhum | OK |
+| Nova ação | `/app/acoes/nova` | 4,71:1 | Nenhum | OK |
+| Minhas ações | `/app/minhas-acoes` | 5,13:1 | Nenhum | OK |
+| Validar | `/app/validar` | 4,71:1 | Nenhum | OK |
+| Ranking | `/app/ranking` | 4,71:1 | Nenhum | OK |
+| Perfil | `/app/perfil` | 4,71:1 | Nenhum | OK |
+| Detalhe | `/app/acoes/1` | 4,71:1 | Nenhum | OK |
+
+O menor valor do site, 4,71:1, passa do mínimo de 4,5:1 com folga pequena. Qualquer escurecimento do fundo ou clareamento do texto secundário nesses pontos pode derrubá-lo.
+
+Lighthouse (categoria Accessibility) em Home, Cadastro e Painel: N/T, não foi executado.
+
+## Conclusão
+
+**O que está bom (verificado no navegador):**
+- Todas as 16 telas são navegáveis só com o teclado, na ordem certa, e todo elemento focável mostra uma mudança de estilo ao receber o foco.
+- Menu mobile da Home em 480 px: abre com Enter, fecha com Esc e devolve o foco ao botão, com `aria-expanded` correto. A área logada não tem menu retrátil e não rola na horizontal em 480 px.
+- Nos formulários testados, todo campo tem rótulo associado, `aria-invalid` e mensagem de erro ligada por `aria-describedby`; o foco vai para o primeiro campo inválido; os campos de dados pessoais têm `autocomplete` adequado.
+- Imagens com texto alternativo útil (fotos) ou `alt` vazio (ilustrações decorativas); todos os ícones `svg` escondidos do leitor de tela.
+- Nenhum texto medido ficou abaixo de 4,5:1. O documento da página declara `lang="pt-BR"` e tem `<main>` (conferido na FAQ).
+- A página 404 criada neste sprint tem título, texto e botão de volta acessíveis por teclado, e título de aba próprio.
+
+**Problemas REGISTRADOS (nenhum de gravidade média ou grave):**
+
+| Gravidade | Problema | Onde | Arquivo provável |
+|---|---|---|---|
+| Leve | Sem link "Pular para o conteúdo" nas telas de `/app`, Cadastro e Login (só o layout público tem); no `/app` são 8 paradas de menu antes do conteúdo. | Todas as telas de `/app`; `/cadastro`; `/login` | `src/layouts/AppLayout/`, `src/layouts/AuthLayout/` (referência: `src/layouts/PublicLayout/PublicLayout.tsx`) |
+| Leve | Erros de formulário sem `role="alert"` nem `aria-live`: só o primeiro erro é anunciado ao enviar; os demais só ao focar cada campo. | Cadastro, Login, Nova ação, Perfil | `src/components/Input/Input.tsx`, `Textarea`, `Select`, `PasswordInput`, `Checkbox` |
+| Leve | O título da aba é "Heaven" em quase todas as telas (só o detalhe da ação e a 404 mudam). Abas diferentes ficam iguais no histórico e no leitor de tela. | Home, Solução, Sobre, Integrantes, FAQ, Contato, Cadastro, Login e telas de `/app` | páginas em `src/pages/` e `index.html` |
+
+**Itens N/T (não testados):**
+- Leitor de tela: nada foi ouvido, os anúncios foram deduzidos dos atributos do DOM.
+- Lighthouse em Home, Cadastro e Painel.
+- FAQ: abrir e fechar as respostas com Enter e Espaço.
+- Minhas ações com itens na lista (a conta de teste não tinha ações).
+- Erros que vêm da API e a troca de estado do botão "Mostrar senha".
+- Contagem regressiva da tela Validar ("Oferta válida por mais ..."): não verifiquei se é anunciada nem se há como estender o prazo.
+- Zoom em 200% e reflow; contraste do contorno de foco, de texto sobre imagem ou degradê, e de links dentro de parágrafos; contraste medido por categoria.
+- O navegador usado foi o embutido do app Claude (Chromium), não o Chrome instalado.
