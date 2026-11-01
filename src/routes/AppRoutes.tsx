@@ -16,6 +16,7 @@ import { ContatoPage } from '../pages/public/Contato'
 import { FAQPage } from '../pages/public/FAQ'
 import { HomePage } from '../pages/public/Home'
 import { IntegrantesPage } from '../pages/public/Integrantes'
+import { NotFoundPage } from '../pages/public/NotFound/NotFoundPage'
 import { SobrePage } from '../pages/public/Sobre'
 import { SolucaoPage } from '../pages/public/Solucao'
 import { APP_ROUTES, AUTH_ROUTES, PUBLIC_ROUTES } from './routeConfig'
@@ -40,6 +41,7 @@ export function AppRoutes() {
         <Route path={PUBLIC_ROUTES.faq} element={<FAQPage />} />
         <Route path={PUBLIC_ROUTES.contato} element={<ContatoPage />} />
         <Route path={PUBLIC_ROUTES.solucao} element={<SolucaoPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
 
       <Route element={<AuthLayout />}>
