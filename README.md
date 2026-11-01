@@ -164,7 +164,7 @@ Os ícones são SVGs inline definidos em `src/components/icons/index.tsx`, sem b
 - **Repositório GitHub do front:** https://github.com/PedroDaniel7/heaven-frontend-2semestre
 - **Vídeo no YouTube:** https://youtu.be/LLxT6jbteKs
 - **Aplicação na Vercel:** https://heaven-frontend-2semestre.vercel.app
-- **API (Render):** https://heaven-java-api.onrender.com
+- **API (Render):** https://heaven-java-api.onrender.com — a raiz devolve 404 por design, pois a API responde em `/api/...`; para conferir, abra https://heaven-java-api.onrender.com/api/saude (deve devolver status OK) ou a documentação em https://heaven-java-api.onrender.com/swagger-ui/index.html. O servidor gratuito pode levar cerca de 1 minuto para acordar na primeira chamada.
 - **Repositório da API Java:** https://github.com/PedroDaniel7/heaven-java-api
 
 > A API roda em um plano gratuito: depois de um tempo sem uso, a primeira chamada pode levar cerca de 1 minuto para acordar o servidor. O front mostra o aviso "Acordando o servidor, pode levar até 1 minuto".
