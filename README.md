@@ -42,6 +42,7 @@ Nesta sprint o front deixou de usar dados estáticos: é uma aplicação React d
 | `/app/validar` | Login | Validar ações de outros usuários |
 | `/app/ranking` | Login | Ranking |
 | `/app/perfil` | Login | Perfil |
+| `*` | Pública | Qualquer caminho inexistente: página "Página não encontrada" (404) |
 
 ### Páginas da solução
 
@@ -54,7 +55,7 @@ Nesta sprint o front deixou de usar dados estáticos: é uma aplicação React d
 | Validar | `/app/validar` | Sorteia uma ação anônima de outro usuário e registra o voto de aprovação ou reprovação | `POST /api/validacoes/sorteio`, `POST /api/validacoes` |
 | Ranking | `/app/ranking` | Mostra os 20 usuários com mais pontos e destaca o próprio usuário | `GET /api/ranking?limite=20`, `GET /api/usuarios/me` |
 | Perfil | `/app/perfil` | Mostra os dados da conta, edita nome, e-mail e senha e desativa a conta | `GET /api/usuarios/me`, `PUT /api/usuarios/me`, `DELETE /api/usuarios/me` |
-| Detalhe do tipo de ação | `/app/acoes/:id` | Mostra categoria, unidade, dificuldade e desafio de um tipo de ação; id inexistente exibe "Ação não encontrada" | `GET /api/tipos-acao/{id}` |
+| Detalhe do tipo de ação | `/app/acoes/:id` | Mostra categoria, unidade, dificuldade e desafio de um tipo de ação; id inexistente exibe "Tipo de ação não encontrado" | `GET /api/tipos-acao/{id}` |
 
 ## Tecnologias utilizadas
 
