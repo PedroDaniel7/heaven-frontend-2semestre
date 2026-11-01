@@ -3,6 +3,7 @@ export type Member = {
   id: string
   name: string
   rm: string
+  turma: string
   photo: string
   github: string
   linkedin: string
