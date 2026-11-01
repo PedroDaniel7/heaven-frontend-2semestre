@@ -162,7 +162,7 @@ Os ícones são SVGs inline definidos em `src/components/icons/index.tsx`, sem b
 ## Como usar
 
 - **Repositório GitHub do front:** https://github.com/PedroDaniel7/heaven-frontend-2semestre
-- **Vídeo no YouTube:** (a preencher)
+- **Vídeo no YouTube:** https://youtu.be/LLxT6jbteKs
 - **Aplicação na Vercel:** https://heaven-frontend-2semestre.vercel.app
 - **API (Render):** https://heaven-java-api.onrender.com
 - **Repositório da API Java:** https://github.com/PedroDaniel7/heaven-java-api
