@@ -40,3 +40,23 @@ Observações:
 - A conta do cenário 1 foi a mesma usada no cenário 4 e foi desativada no fim pelo botão "Desativar conta" do perfil.
 - O cenário 4 também confirma o que a seção Cadastro deixou em aberto: o login com uma conta desativada é bloqueado.
 - Nenhuma ação foi criada, aprovada ou reprovada.
+
+## Nova ação (`/app/acoes/nova`)
+
+| Cenário | Passos | Mensagem exibida | Resultado | Como foi verificado |
+|---|---|---|---|---|
+| 1. Enviar sem escolher o tipo | Abrir a tela e inspecionar o seletor "Tipo de Impacto" | Nenhuma mensagem: o seletor não tem opção vazia e já vem com o primeiro tipo marcado ("Uso de transporte publico"), então não dá para enviar sem tipo pela tela | N/T | Não testado como envio: o seletor não tem opção vazia, então a tela não permite enviar sem tipo, e enviar com o tipo padrão e dados válidos criaria uma ação de verdade. Conteúdo do seletor visto no navegador e valor inicial verificado por leitura de código (`NewActionForm.tsx`: `tipos[0].id`) |
+| 2. Quantidade vazia | Preencher a evidência, deixar a quantidade em branco e enviar | "Informe a quantidade." (no campo Quantidade) | OK | Testado no navegador |
+| 3. Quantidade zero | Preencher a evidência, digitar `0` na quantidade e enviar | "A quantidade deve ser maior que zero." (no campo Quantidade) | OK | Testado no navegador |
+| 4. Quantidade negativa | Preencher a evidência, digitar `-5` na quantidade e enviar | "Use um número com até duas casas decimais." (no campo Quantidade; o texto fala em casas decimais, mas o motivo real é o sinal de menos) | PROBLEMA (leve): a mensagem para `-5` fala em "casas decimais" e não diz que o valor não pode ser negativo; o envio é bloqueado corretamente, mas o texto não explica o motivo. Não corrigido (fora do escopo desta tarefa, sem alteração de código) | Testado no navegador |
+| 5. Quantidade com letras | Preencher a evidência, digitar `abc` na quantidade e enviar | "Use um número com até duas casas decimais." (no campo Quantidade) | OK | Testado no navegador |
+
+Resumo da seção: 5 cenários, 4 testados no navegador (3 OK, 1 PROBLEMA leve) e 1 N/T.
+
+Observações:
+
+- Nos cenários 2 a 5 a página continuou em `/app/acoes/nova` e a validação do formulário bloqueou o envio antes de qualquer chamada à API.
+- Nenhum cenário criou uma ação de verdade. Conferido em Minhas ações da conta de teste (`eduardo-teste-0111-4@example.test`), que mostrou "Nenhuma ação registrada ainda". Por isso não foi preciso cancelar nada.
+- Para não criar ação real, o cenário 1 não foi enviado com tipo padrão e dados válidos, porque isso registraria uma ação do primeiro tipo.
+- A conta de teste foi desativada no fim pelo botão "Desativar conta" do perfil, e o app voltou para `/`.
+- Nenhuma ação foi aprovada ou reprovada.
