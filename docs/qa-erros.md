@@ -24,3 +24,19 @@ Observações:
 - Em todos os cenários a página continuou em `/cadastro` e nenhuma conta nova foi criada, com exceção da conta usada no cenário 1.
 - Nos cenários 2, 3 e 4 as mensagens são validações do próprio formulário (aparecem antes de qualquer chamada à API). Só o cenário 1 depende da resposta do servidor.
 - A conta criada no cenário 1 foi desativada no fim pelo botão "Desativar conta" do perfil. O app voltou para `/` depois da confirmação. O login com essa conta bloqueada não foi retestado nesta rodada.
+
+## Login (`/login`)
+
+| Cenário | Passos | Mensagem exibida | Resultado | Como foi verificado |
+|---|---|---|---|---|
+| 1. Senha errada | Criar `eduardo-teste-0111-3@example.test`, sair, abrir `/login` e entrar com esse e-mail e uma senha incorreta | "E-mail ou senha incorretos." (acima do botão Entrar; a página continua em `/login`) | OK | Testado no navegador |
+| 2. E-mail que não existe | Entrar com `eduardo-teste-inexistente-0111@example.test` e uma senha qualquer | "E-mail ou senha incorretos." (a mesma mensagem da senha errada, então a tela não revela se o e-mail existe) | OK | Testado no navegador |
+| 3. Campos vazios | Abrir `/login` e clicar em "Entrar" sem preencher nada | "Informe seu e-mail." / "Informe sua senha." (cada uma no seu campo) | OK | Testado no navegador |
+| 4. Conta desativada | Entrar com a conta de teste, abrir o Perfil, clicar em "Desativar conta" e confirmar (o app volta para `/`). Depois abrir `/login` e entrar com o mesmo e-mail e a senha correta | "Esta conta foi desativada e não pode entrar." (a página continua em `/login`) | OK | Testado no navegador |
+| 5. Acessar `/app` sem login | Sem sessão (nenhum dado salvo no navegador), abrir `http://localhost:5173/app` direto | Nenhuma mensagem; o app redireciona para `/login` (tela "Bem-vindo de volta.") | OK | Testado no navegador |
+
+Observações:
+
+- A conta do cenário 1 foi a mesma usada no cenário 4 e foi desativada no fim pelo botão "Desativar conta" do perfil.
+- O cenário 4 também confirma o que a seção Cadastro deixou em aberto: o login com uma conta desativada é bloqueado.
+- Nenhuma ação foi criada, aprovada ou reprovada.
