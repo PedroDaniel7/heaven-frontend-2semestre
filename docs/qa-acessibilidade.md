@@ -44,3 +44,32 @@ Teste feito no navegador com as teclas Tab, Shift+Tab, Enter, Espaço e Esc, sem
 | Área logada em 480 px | N/A. Não existe menu retrátil: os 6 links e o botão "Sair" ficam sempre visíveis, sem rolagem horizontal. | Largura 480 px medida por script. |
 
 Fora do escopo desta seção: as telas `/cadastro` e `/login` não têm menu retrátil.
+
+## Formulários
+
+Verificado no navegador, lendo o DOM (rótulo associado, `aria-describedby`, `aria-invalid`, `autocomplete`) e provocando um erro de validação em cada formulário: envio com campos vazios em Cadastro, Login e Nova ação; nome vazio, e-mail sem "@" e senha curta no Perfil. Nenhum envio chegou à API nesses testes (a validação do formulário barrou antes). Os erros ligados ao campo usam `aria-describedby` apontando para a mensagem e `aria-invalid="true"`.
+
+Sobre "Erro anunciado": ao enviar com erro, o foco vai para o primeiro campo inválido e o leitor de tela lê a mensagem ligada a ele. As mensagens dos outros campos só seriam lidas quando o foco chegar neles, porque as mensagens não têm `role="alert"` nem `aria-live`. A região `role="status"` da página existe, mas estava vazia. Isso foi deduzido dos atributos do DOM; **não testei com leitor de tela**.
+
+| Formulário | Campo | Rótulo associado | Erro ligado ao campo (aria) | Erro anunciado | autocomplete | Resultado |
+|---|---|---|---|---|---|---|
+| Cadastro | Nome | OK ("Nome") | OK, "Informe seu nome." | Parcial (lido ao focar; foco foi para este campo) | `name` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Cadastro | E-mail | OK ("E-mail") | OK, "Informe seu e-mail." | Parcial (só ao focar o campo) | `email` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Cadastro | Senha | OK ("Senha") | OK, "Informe sua senha." | Parcial (só ao focar o campo) | `new-password` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Cadastro | Confirmar senha | OK ("Confirmar senha") | OK, "Confirme sua senha." | Parcial (só ao focar o campo) | `new-password` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Cadastro | Termos (caixa de seleção) | OK (texto "Concordo com os termos de uso e a política de privacidade.") | OK, "É necessário aceitar os termos para criar sua conta." | Parcial (só ao focar o campo) | N/A (não é dado pessoal) | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Login | E-mail | OK ("E-mail") | OK, "Informe seu e-mail." | Parcial (lido ao focar; foco foi para este campo) | `email` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Login | Senha | OK ("Senha") | OK, "Informe sua senha." | Parcial (só ao focar o campo) | `current-password` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Nova ação | Tipo de Impacto (lista) | OK ("Tipo de Impacto") | N/A: já vem com um tipo selecionado, não deu para provocar erro | N/A | N/A | OK (rótulo); erro N/T |
+| Nova ação | Quantidade | OK ("Quantidade"); texto de apoio ligado por `aria-describedby` | OK, "Informe a quantidade." (a mensagem de erro substitui o texto de apoio no `aria-describedby`) | Parcial (lido ao focar; foco foi para este campo) | N/A (não é dado pessoal) | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Nova ação | Evidência | OK ("Evidência") | OK, "Descreva a evidência da ação (o que você fez e como comprova)." | Parcial (só ao focar o campo) | N/A | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Perfil | Nome | OK ("Nome") | OK, "Informe seu nome." | Parcial (lido ao focar; foco foi para este campo) | `name` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Perfil | E-mail | OK ("E-mail") | OK, "Digite um e-mail válido." (testado com texto sem "@") | Parcial (só ao focar o campo) | `email` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Perfil | Nova senha | OK ("Nova senha (opcional)"); texto de apoio ligado por `aria-describedby` | OK, "A senha deve ter pelo menos 8 caracteres." (testado com 3 caracteres) | Parcial (só ao focar o campo) | `new-password` | OK; REGISTRADO (leve) pelo anúncio parcial |
+| Validar | Justificativa | OK ("Justificativa (opcional)") | N/T: o campo é opcional, então não existe erro de validação; provocar o envio exigiria votar numa ação, o que não foi feito | N/T | N/A | OK (rótulo); erro N/T |
+
+Observações dos formulários:
+
+- Os botões "Mostrar senha" (Cadastro, Login e Perfil) têm `aria-label="Mostrar senha"` e `aria-pressed="false"`. Troca do rótulo e do estado ao acionar: N/T (só foram focados).
+- Erros que vêm da API (por exemplo senha errada no Login): N/T; só vi a mensagem de conta desativada na tela, sem verificar se ela é anunciada por leitor de tela.
+- REGISTRADO (leve), anúncio parcial dos erros: `role="alert"` ou `aria-live` com o texto do erro faria o leitor de tela falar o resumo dos erros ao enviar. Arquivo provável: `src/components/Input/Input.tsx`, `src/components/Textarea/Textarea.tsx`, `src/components/Select/Select.tsx`, `src/components/PasswordInput/PasswordInput.tsx` e `src/components/Checkbox/Checkbox.tsx`.
