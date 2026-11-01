@@ -24,7 +24,7 @@ export function IntegrantesPage() {
             <PersonCard
               name={member.name}
               photo={member.photo}
-              subtitle={`RM ${member.rm}`}
+              subtitle={`RM ${member.rm} · Turma ${member.turma}`}
             >
               {/* py-3 leva a área de toque dos links a 44px; -my-3 compensa no layout. */}
               <div className="flex items-center gap-4">
