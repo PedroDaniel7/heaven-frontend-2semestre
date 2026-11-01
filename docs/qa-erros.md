@@ -60,3 +60,74 @@ Observações:
 - Para não criar ação real, o cenário 1 não foi enviado com tipo padrão e dados válidos, porque isso registraria uma ação do primeiro tipo.
 - A conta de teste foi desativada no fim pelo botão "Desativar conta" do perfil, e o app voltou para `/`.
 - Nenhuma ação foi aprovada ou reprovada.
+
+## Carregando (Validar, Ranking e Perfil)
+
+Como foi provocado: o DevTools (Rede > Slow 3G) não estava disponível, então a lentidão foi simulada dentro da página, interceptando o `fetch` para atrasar cada requisição em 6 segundos, e as telas foram abertas pelo menu (sem recarregar). Não é a mesma coisa que o Slow 3G do DevTools.
+
+| Tela | O que aparece em 1 s | O que aparece depois de 3 s | Resultado | Como foi verificado |
+|---|---|---|---|---|
+| Validar (`/app/validar`) | O título "Central de Auditoria de Pares", o texto de apoio e "Sorteando uma ação para você…" | Os mesmos textos mais "Acordando o servidor, pode levar até 1 minuto." | OK | Testado no navegador (lentidão simulada) |
+| Ranking (`/app/ranking`) | O título "Ranking", o texto de apoio e "Carregando o ranking…" | Os mesmos textos mais "Acordando o servidor, pode levar até 1 minuto." | OK | Testado no navegador (lentidão simulada) |
+| Perfil (`/app/perfil`) | O título "Perfil" e "Carregando seu perfil…" | Os mesmos textos mais "Acordando o servidor, pode levar até 1 minuto." | OK | Testado no navegador (lentidão simulada) |
+
+Observações:
+
+- Em todas as telas o menu continua visível e usável durante o carregamento, e depois da resposta a tela mostra o conteúdo normal.
+- Abrir a tela Validar já sorteia uma ação real para a conta ("Oferta válida por mais 9:59"). A ação apareceu com os botões Aprovar e Reprovar, e nenhum deles foi clicado. Nenhum voto foi dado.
+
+## Erro de rede (Validar, Ranking e Perfil)
+
+Como foi provocado: o DevTools (Rede > Offline) não estava disponível, então a falta de conexão foi simulada dentro da página, fazendo o `fetch` falhar do mesmo jeito que o navegador falha sem rede (erro "Failed to fetch"), e as telas foram abertas pelo menu. Não é a mesma coisa que o modo Offline do DevTools.
+
+| Tela | Mensagem exibida | Resultado | Como foi verificado |
+|---|---|---|---|
+| Validar (`/app/validar`) | "Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente." com o botão "Tentar novamente" | OK | Testado no navegador (rede simulada) |
+| Ranking (`/app/ranking`) | "Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente." com o botão "Tentar novamente" | OK | Testado no navegador (rede simulada) |
+| Perfil (`/app/perfil`) | "Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente." com o botão "Tentar novamente" | OK | Testado no navegador (rede simulada) |
+
+Observações:
+
+- A mensagem é a mesma nas três telas, em português, e a tela não quebra: o menu continua visível.
+- Com a rede de volta, o botão "Tentar novamente" do Perfil carregou o formulário normalmente. O botão não foi testado no Validar nem no Ranking.
+
+## Perfil (`/app/perfil`)
+
+| Cenário | Passos | Mensagem exibida | Resultado | Como foi verificado |
+|---|---|---|---|---|
+| 1. Nome vazio | Apagar o nome e clicar em "Salvar alterações" | "Informe seu nome." (no campo Nome) | OK | Testado no navegador |
+| 2. E-mail repetido | Trocar o e-mail por `eduardo-teste-0111-6@example.test`, que já pertencia a outra conta de teste ativa, e salvar | "E-mail já cadastrado." (no campo E-mail) | OK | Testado no navegador |
+| 3. Senha curta | Digitar uma nova senha de 7 caracteres e salvar | "A senha deve ter pelo menos 8 caracteres." (no campo Nova senha) | OK | Testado no navegador |
+
+Observações:
+
+- Nos três cenários a página continuou em `/app/perfil`, nada foi salvo e a tela não quebrou.
+- Foram usadas duas contas de teste: `eduardo-teste-0111-5@example.test` (a que editou o perfil) e `eduardo-teste-0111-6@example.test` (a que forneceu o e-mail repetido). As duas foram desativadas no fim pelo botão "Desativar conta" do perfil.
+
+## Não testado (N/T)
+
+| Cenário | Resultado | Motivo |
+|---|---|---|
+| Limite diário de ações | N/T | Exigiria registrar ações de verdade até bater o limite, e cada uma entraria na fila de validação da comunidade. O valor do limite também não está no front-end |
+| Bloqueio por penalização | N/T | Exige uma conta com penalização ativa, que só se cria mexendo no banco |
+| Sorteio sem ação disponível | N/T | Depende de não haver nenhuma ação pendente para validar, o que só se provoca mexendo no banco. Na rodada de testes a tela Validar sempre achou uma ação para sortear |
+| Ranking vazio | N/T | O ranking já tem usuários, então só apareceria com o banco vazio |
+
+## Conclusão
+
+- **Cenários listados:** 29 (Cadastro 6, Login 5, Nova ação 5, Carregando 3, Erro de rede 3, Perfil 3, e os 4 N/T desta seção).
+- **Testados no navegador:** 24.
+- **OK:** 23.
+- **PROBLEMA:** 1 (leve).
+- **N/T:** 5 (1 de Nova ação, o envio sem escolher o tipo, e os 4 da seção anterior).
+
+Problemas encontrados:
+
+1. Nova ação, quantidade negativa (`-5`): a mensagem diz "Use um número com até duas casas decimais." e não explica que o valor não pode ser negativo. É um texto confuso, não um erro grave: o envio é bloqueado corretamente. Não foi corrigido nesta tarefa, porque ela não altera esse arquivo.
+
+Pontos de atenção (não são erros):
+
+- Os cenários "Carregando" e "Erro de rede" foram simulados na própria página, e não pelo Slow 3G e pelo Offline do DevTools. O comportamento de tela está confirmado, mas o tempo real em uma rede lenta de verdade não foi medido.
+- Abrir a tela Validar já sorteia uma ação real para o usuário, com prazo de 10 minutos. Nenhuma ação foi aprovada ou reprovada nesta QA.
+
+Contas de teste usadas e desativadas no fim: `eduardo-teste-0111@example.test`, `-0111-2`, `-0111-3`, `-0111-4`, `-0111-5` e `-0111-6` (todas em `@example.test`). Nenhuma senha foi registrada neste documento.
